@@ -13,8 +13,6 @@ void main() async {
   // loading
   // FlutterNativeSplash.remove(widgetsBinding: widgetsBinding);
 
-  // Do Firebase Initial Settings With Firebase CLI
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await AppInitalizer().init();
   //Get.config();
   runApp(
