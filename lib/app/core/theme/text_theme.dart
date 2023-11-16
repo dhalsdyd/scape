@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 
