@@ -38,7 +38,7 @@ class FGBPTextField extends StatelessWidget {
       enableSuggestions: !isPassword,
       autocorrect: !isPassword,
       autofocus: autofocus,
-      style: FGBPTextTheme.regular20,
+      style: FGBPTextTheme.Text2,
       cursorColor: Colors.black,
       keyboardType: textInputType,
       maxLength: maxLength,
@@ -57,9 +57,10 @@ class FGBPTextField extends StatelessWidget {
           ),
         ),
         counterText: "",
-        fillColor: FGBPColors.black,
+        fillColor: FGBPColors.white,
         filled: true,
-        hintStyle: FGBPTextTheme.regular20,
+        hintStyle: FGBPTextTheme.Text2,
+        
         floatingLabelStyle: const TextStyle(
             color: Color.fromRGBO(0, 0, 0, 0.4),
             fontWeight: FontWeight.w500,

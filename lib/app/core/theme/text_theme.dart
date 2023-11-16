@@ -101,4 +101,45 @@ abstract class FGBPTextTheme {
       fontWeight: FontWeight.w500,
       fontSize: 14,
       color: FGBPColors.white);
+
+  static const Text1 = TextStyle(
+      fontFamily: "Pretendard",
+      fontWeight: FontWeight.w400,
+      fontSize: 11,
+      color: FGBPColors.black);
+  static const Text2 = TextStyle(
+      fontFamily: "Pretendard",
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      color: FGBPColors.black);
+  static const Text3 = TextStyle(
+      fontFamily: "Pretendard",
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      color: FGBPColors.black);
+  static const Text3_MEDIUM = TextStyle(
+      fontFamily: "Pretendard",
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+      color: FGBPColors.black);
+  static const Text4 = TextStyle(
+      fontFamily: "Pretendard",
+      fontWeight: FontWeight.w500,
+      fontSize: 18,
+      color: FGBPColors.black);
+  static const Text4_BOLD = TextStyle(
+      fontFamily: "Pretendard",
+      fontWeight: FontWeight.w600,
+      fontSize: 18,
+      color: FGBPColors.black);
+  static const Text5 = TextStyle(
+      fontFamily: "Pretendard",
+      fontWeight: FontWeight.w500,
+      fontSize: 20,
+      color: FGBPColors.black);
+  static const Text5_BOLD = TextStyle(
+      fontFamily: "Pretendard",
+      fontWeight: FontWeight.w700,
+      fontSize: 20,
+      color: FGBPColors.black);
 }

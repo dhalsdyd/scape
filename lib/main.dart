@@ -20,7 +20,7 @@ void main() async {
   runApp(
     GetMaterialApp(
       //unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()),
-      initialRoute: Routes.home,
+      initialRoute: Routes.root,
       getPages: AppPages.pages,
       theme: ThemeData(fontFamily: "Pretendard"),
       locale: GetCurrentLocale.currentDeviceLocale,
