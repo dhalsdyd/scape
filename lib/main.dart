@@ -1,3 +1,4 @@
+import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
 import 'package:firebase_getx_boilerplate/app/data/initalize.dart';
 import 'package:firebase_getx_boilerplate/app/routes/pages.dart';
 import 'package:firebase_getx_boilerplate/app/routes/route.dart';
@@ -20,7 +21,10 @@ void main() async {
       //unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()),
       initialRoute: Routes.root,
       getPages: AppPages.pages,
-      theme: ThemeData(fontFamily: "Pretendard"),
+      theme: ThemeData(
+          fontFamily: "Pretendard",
+          textSelectionTheme: const TextSelectionThemeData(
+              selectionColor: FGBPColors.Primary40)),
       locale: GetCurrentLocale.currentDeviceLocale,
       fallbackLocale: GetCurrentLocale.fallBackLocale,
       //routingCallback

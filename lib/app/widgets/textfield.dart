@@ -54,9 +54,17 @@ class FGBPTextField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            width: 0,
-            style: BorderStyle.none,
-          ),
+              width: 1, style: BorderStyle.solid, color: FGBPColors.Gray60),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+              width: 1, style: BorderStyle.solid, color: FGBPColors.Gray60),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+              width: 1, style: BorderStyle.solid, color: FGBPColors.Primary40),
         ),
         counterText: "",
         fillColor: FGBPColors.white,
@@ -66,8 +74,7 @@ class FGBPTextField extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: prefixIcon,
         ),
-        
-        
+        contentPadding: EdgeInsets.symmetric(vertical: 10),
         floatingLabelStyle: const TextStyle(
             color: Color.fromRGBO(0, 0, 0, 0.4),
             fontWeight: FontWeight.w500,

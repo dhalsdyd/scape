@@ -1,9 +1,11 @@
 import 'package:firebase_getx_boilerplate/app/pages/account/controller.dart';
 import 'package:get/get.dart';
 
-class AccountDetailBinding extends Bindings {
+class AccountSettingPageBindng extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AccountDetailController>(() => AccountDetailController());
+    Get.lazyPut<AccountSettingPageController>(
+      () => AccountSettingPageController(),
+    );
   }
 }

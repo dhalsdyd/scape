@@ -124,6 +124,11 @@ abstract class FGBPTextTheme {
       fontWeight: FontWeight.w500,
       fontSize: 14,
       color: FGBPColors.black);
+  static const Text3_BOLD = TextStyle(
+      fontFamily: "Pretendard",
+      fontWeight: FontWeight.bold,
+      fontSize: 14,
+      color: FGBPColors.black);
   static const Text4 = TextStyle(
       fontFamily: "Pretendard",
       fontWeight: FontWeight.w500,

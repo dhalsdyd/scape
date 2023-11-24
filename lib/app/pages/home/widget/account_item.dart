@@ -1,6 +1,9 @@
+import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
 import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
+import 'package:firebase_getx_boilerplate/app/pages/home/widget/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class AccountItem extends StatefulWidget {
   const AccountItem(
@@ -50,7 +53,7 @@ class _AccountItemState extends State<AccountItem> {
   Widget iconWithText(String assetName, String label) {
     return Row(
       children: [
-        SvgPicture.asset("asset/icons/$assetName.svg"),
+        SvgPicture.asset("assets/icons/$assetName.svg"),
         const SizedBox(width: 2),
         Text(label,
             style:
@@ -58,14 +61,13 @@ class _AccountItemState extends State<AccountItem> {
       ],
     );
   }
+
   Widget iconWithText2(String assetName, String label) {
     return Row(
       children: [
-        SvgPicture.asset("asset/icons/$assetName.svg"),
+        SvgPicture.asset("assets/icons/$assetName.svg"),
         const SizedBox(width: 2),
-        Text(label,
-            style:
-                FGBPTextTheme.Text2),
+        Text(label, style: FGBPTextTheme.Text2),
       ],
     );
   }
@@ -77,6 +79,7 @@ class _AccountItemState extends State<AccountItem> {
       onTap: () {
         switch (name) {
           case "edit":
+            Get.to(() => AccountDetailPage());
             break;
           case "delete":
             break;
@@ -107,87 +110,92 @@ class _AccountItemState extends State<AccountItem> {
     );
   }
 
-  Widget _buildIsNotOpen() {
+  Widget _buildHeaderOptionIsNotOpen() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xffE6E6E6)),
+      ),
+      child: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
+        child: Text(
+          "Copy",
+          style: FGBPTextTheme.Text1,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeaderIsNotOpen() {
     return Row(
       children: [
-        Expanded(
-          child: Row(
-            children: [
-              profileImage(),
-              const SizedBox(width: 10),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(widget.name, style: FGBPTextTheme.Text3_MEDIUM),
-                  const SizedBox(height: 4),
-                  iconWithText("small_mail", widget.account),
-                  const SizedBox(height: 2),
-                  if (widget.password != null)
-                    iconWithText("small_lock", widget.password!),
-                ],
-              )
-            ],
-          ),
+        Row(
+          children: [
+            profileImage(),
+            const SizedBox(width: 10),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.name, style: FGBPTextTheme.Text3_MEDIUM),
+                const SizedBox(height: 4),
+                iconWithText("small_mail", widget.account),
+                const SizedBox(height: 2),
+                if (widget.password != null)
+                  iconWithText("key", widget.password!),
+              ],
+            )
+          ],
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: const Color(0xffE6E6E6)),
-          ),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
-            child: Text(
-              "Copy",
-              style: FGBPTextTheme.Text1,
-            ),
-          ),
-        )
       ],
     );
   }
 
-  Widget _buildIsOpen() {
-    return Column(
+  Widget _buildHeaderOptionIsOpen() {
+    return IconButton(
+        onPressed: () {
+          setState(() {
+            isOpen = !isOpen;
+          });
+        },
+        icon: const Icon(Icons.keyboard_arrow_up));
+  }
+
+  Widget _buildHeaderIsOpen() {
+    return Row(
       children: [
         Row(
           children: [
-            Expanded(
-              child: Row(
-                children: [
-                  profileImage(),
-                  const SizedBox(width: 10),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(widget.name, style: FGBPTextTheme.Text3_MEDIUM),
-                      const SizedBox(height: 4),
-                      Text(
-                        "Last used at 2023.11.09",
-                        style: FGBPTextTheme.Text1.copyWith(
-                            color: const Color(0xff868686)),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    isOpen = !isOpen;
-                  });
-                },
-                icon: const Icon(Icons.keyboard_arrow_up))
+            profileImage(),
+            const SizedBox(width: 10),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.name, style: FGBPTextTheme.Text3_MEDIUM),
+                const SizedBox(height: 4),
+                Text(
+                  "Last used at 2023.11.09",
+                  style: FGBPTextTheme.Text1.copyWith(
+                      color: const Color(0xff868686)),
+                )
+              ],
+            )
           ],
         ),
+      ],
+    );
+  }
+
+  Widget _buildContentIsOpen() {
+    return Column(
+      children: [
         const SizedBox(height: 16),
         iconWithText2("small_mail", "Email : ${widget.account}"),
         const SizedBox(height: 12),
         if (widget.password != null)
-          iconWithText2("small_lock", "Password : ${widget.password!}"),
+          iconWithText2("key", "Password : ${widget.password!}"),
         const SizedBox(height: 16),
         Row(
           children: [
@@ -211,16 +219,36 @@ class _AccountItemState extends State<AccountItem> {
           isOpen = !isOpen;
         });
       },
-      child: AnimatedSize(
-        duration: const Duration(milliseconds: 300),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-            child: isOpen ? _buildIsOpen() : _buildIsNotOpen(),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: FGBPColors.Gray60),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+          child: Column(
+            children: [
+              AnimatedSize(
+                  duration: const Duration(milliseconds: 300),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: isOpen
+                              ? _buildHeaderIsOpen()
+                              : _buildHeaderIsNotOpen()),
+                      AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          child: isOpen
+                              ? _buildHeaderOptionIsOpen()
+                              : _buildHeaderOptionIsNotOpen()),
+                    ],
+                  )),
+              AnimatedSize(
+                duration: const Duration(milliseconds: 300),
+                child: isOpen ? _buildContentIsOpen() : Container(),
+              ),
+            ],
           ),
         ),
       ),

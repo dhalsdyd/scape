@@ -23,27 +23,36 @@ class RootPage extends GetView<RootPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: controller.pages[0],
+        child: Obx(
+          () => IndexedStack(
+            index: controller.pageIndex,
+            children: controller.pages,
+          ),
+        ),
       ),
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
-        child: BottomNavigationBar(
-          items: [
-            _bottomNavigationBarItem('assets/icons/home.svg', 'Home'),
-            _bottomNavigationBarItem('assets/icons/virtual.svg', 'Virtual'),
-            _bottomNavigationBarItem('assets/icons/mail.svg', 'Mail/Phone'),
-            _bottomNavigationBarItem('assets/icons/privacy.svg', 'Privacy'),
-          ],
-          selectedItemColor: FGBPColors.Primary10,
-          unselectedItemColor: FGBPColors.Gray10,
-          showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          selectedLabelStyle: FGBPTextTheme.regular12,
+        child: Obx(
+          () => BottomNavigationBar(
+            items: [
+              _bottomNavigationBarItem('assets/icons/home.svg', 'Home'),
+              _bottomNavigationBarItem('assets/icons/virtual.svg', 'Virtual'),
+              _bottomNavigationBarItem('assets/icons/mail.svg', 'Inbox'),
+              _bottomNavigationBarItem('assets/icons/privacy.svg', 'Privacy'),
+            ],
+            selectedItemColor: FGBPColors.Primary10,
+            unselectedItemColor: FGBPColors.Gray10,
+            showUnselectedLabels: true,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            selectedLabelStyle: FGBPTextTheme.regular12,
+            currentIndex: controller.pageIndex,
+            onTap: controller.changePage,
+          ),
         ),
       ),
     );

@@ -15,5 +15,6 @@ class AppPages {
         name: Routes.root,
         page: () => const RootPage(),
         binding: RootPageBinding()),
+    
   ];
 }

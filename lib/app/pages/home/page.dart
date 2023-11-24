@@ -1,10 +1,12 @@
 import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
+import 'package:firebase_getx_boilerplate/app/pages/account/page.dart';
 import 'package:firebase_getx_boilerplate/app/pages/home/mock/data.dart';
 import 'package:firebase_getx_boilerplate/app/pages/home/widget/account_item.dart';
 import 'package:firebase_getx_boilerplate/app/pages/home/widget/tab_item.dart';
 import 'package:firebase_getx_boilerplate/app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,16 +16,22 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Text('Actions', style: FGBPTextTheme.Text4_BOLD),
           const SizedBox(height: 8),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ActionTabItem(assetName: "add_mail", label: "Create Mail"),
               ActionTabItem(assetName: "virtual", label: "Create VA"),
-              ActionTabItem(assetName: "add_document", label: "Add Account"),
+              ActionTabItem(
+                assetName: "add_document",
+                label: "Add Account",
+                onTap: () {
+                  Get.to(() => AccountSettingPage());
+                },
+              ),
               ActionTabItem(assetName: "inbox", label: "Inbox"),
             ],
           ),
@@ -56,7 +64,11 @@ class HomePage extends StatelessWidget {
             itemCount: accountMockData.length,
           )),
           const SizedBox(height: 8),
-          FGBPTextField(hintText: "Search Account",prefixIcon: SvgPicture.asset("assets/icons/search.svg"),)
+          FGBPTextField(
+            hintText: "Search Account",
+            prefixIcon: SvgPicture.asset("assets/icons/search.svg"),
+          ),
+          const SizedBox(height: 8),
         ]),
       )),
     );
