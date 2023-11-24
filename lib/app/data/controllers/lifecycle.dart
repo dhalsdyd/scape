@@ -17,4 +17,9 @@ class LifeCycleController extends FullLifeCycleController
   // Mandatory
   @override
   void onResumed() {}
+  
+  @override
+  void onHidden() {
+    // TODO: implement onHidden
+  }
 }

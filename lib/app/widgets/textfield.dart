@@ -14,6 +14,7 @@ class FGBPTextField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final void Function()? onEditingComplete;
   final bool? enableInteractiveSelection;
+  final Widget? prefixIcon;
 
   const FGBPTextField({
     Key? key,
@@ -28,6 +29,7 @@ class FGBPTextField extends StatelessWidget {
     this.enableInteractiveSelection,
     this.autofocus = false,
     this.isPassword = false,
+    this.prefixIcon,
   }) : super(key: key);
 
   @override
@@ -59,7 +61,12 @@ class FGBPTextField extends StatelessWidget {
         counterText: "",
         fillColor: FGBPColors.white,
         filled: true,
-        hintStyle: FGBPTextTheme.Text2,
+        hintStyle: FGBPTextTheme.Text2.copyWith(color: const Color(0xff777777)),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.all(10),
+          child: prefixIcon,
+        ),
+        
         
         floatingLabelStyle: const TextStyle(
             color: Color.fromRGBO(0, 0, 0, 0.4),

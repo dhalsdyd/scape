@@ -4,6 +4,7 @@ import 'package:firebase_getx_boilerplate/app/pages/home/widget/account_item.dar
 import 'package:firebase_getx_boilerplate/app/pages/home/widget/tab_item.dart';
 import 'package:firebase_getx_boilerplate/app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,7 +28,13 @@ class HomePage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          const Text('Accounts', style: FGBPTextTheme.Text4_BOLD),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Accounts', style: FGBPTextTheme.Text4_BOLD),
+              SvgPicture.asset("assets/icons/filter.svg")
+            ],
+          ),
           const SizedBox(height: 8),
           Expanded(
               child: ListView.builder(
@@ -49,7 +56,7 @@ class HomePage extends StatelessWidget {
             itemCount: accountMockData.length,
           )),
           const SizedBox(height: 8),
-          FGBPTextField(hintText: "Search Account")
+          FGBPTextField(hintText: "Search Account",prefixIcon: SvgPicture.asset("assets/icons/search.svg"),)
         ]),
       )),
     );

@@ -2,7 +2,7 @@ import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class AccountItem extends StatelessWidget {
+class AccountItem extends StatefulWidget {
   const AccountItem(
       {super.key,
       this.image,
@@ -15,13 +15,22 @@ class AccountItem extends StatelessWidget {
   final String account;
   final String? password;
 
+  @override
+  State<AccountItem> createState() => _AccountItemState();
+}
+
+class _AccountItemState extends State<AccountItem> {
+  bool isOpen = false;
+
   Widget profileImage() {
-    if (image != null) {
-      return Container(width: 36,
-        height: 36, decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(child: Image.network(image!)));
+    if (widget.image != null) {
+      return Container(
+          width: 36,
+          height: 36,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Center(child: Image.network(widget.image!)));
     } else {
       return Container(
         width: 36,
@@ -31,7 +40,7 @@ class AccountItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(name[0],
+          child: Text(widget.name[0],
               style: FGBPTextTheme.Text4_BOLD.copyWith(color: Colors.white)),
         ),
       );
@@ -44,21 +53,105 @@ class AccountItem extends StatelessWidget {
         SvgPicture.asset("asset/icons/$assetName.svg"),
         const SizedBox(width: 2),
         Text(label,
-            style: FGBPTextTheme.Text1.copyWith(color: const Color(0xff8f8f8f))),
+            style:
+                FGBPTextTheme.Text1.copyWith(color: const Color(0xff8f8f8f))),
+      ],
+    );
+  }
+  Widget iconWithText2(String assetName, String label) {
+    return Row(
+      children: [
+        SvgPicture.asset("asset/icons/$assetName.svg"),
+        const SizedBox(width: 2),
+        Text(label,
+            style:
+                FGBPTextTheme.Text2),
       ],
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
+  Widget optionTool(String name) {
+    return GestureDetector(
+      onTap: () {
+        switch (name) {
+          case "edit":
+            break;
+          case "delete":
+            break;
+          case "open":
+            break;
+          case "close":
+            break;
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xffF8F8F8),
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: const Color(0xffD3D3D3)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(7.5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset("assets/icons/$name.svg"),
+              const SizedBox(width: 8),
+              Text(capitalize(name), style: FGBPTextTheme.Text1),
+            ],
+          ),
+        ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-        child: Row(
+    );
+  }
+
+  Widget _buildIsNotOpen() {
+    return Row(
+      children: [
+        Expanded(
+          child: Row(
+            children: [
+              profileImage(),
+              const SizedBox(width: 10),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(widget.name, style: FGBPTextTheme.Text3_MEDIUM),
+                  const SizedBox(height: 4),
+                  iconWithText("small_mail", widget.account),
+                  const SizedBox(height: 2),
+                  if (widget.password != null)
+                    iconWithText("small_lock", widget.password!),
+                ],
+              )
+            ],
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: const Color(0xffE6E6E6)),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
+            child: Text(
+              "Copy",
+              style: FGBPTextTheme.Text1,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildIsOpen() {
+    return Column(
+      children: [
+        Row(
           children: [
             Expanded(
               child: Row(
@@ -69,28 +162,66 @@ class AccountItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(name, style: FGBPTextTheme.Text3_MEDIUM),
+                      Text(widget.name, style: FGBPTextTheme.Text3_MEDIUM),
                       const SizedBox(height: 4),
-                      iconWithText("small_mail", account),
-                      const SizedBox(height: 2),
-                      if (password != null) iconWithText("small_lock", password!),
+                      Text(
+                        "Last used at 2023.11.09",
+                        style: FGBPTextTheme.Text1.copyWith(
+                            color: const Color(0xff868686)),
+                      )
                     ],
                   )
                 ],
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xffE6E6E6)),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical:7.5,horizontal:8),
-                child: Text("Copy",style: FGBPTextTheme.Text1,),
-              ),
-            )
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    isOpen = !isOpen;
+                  });
+                },
+                icon: const Icon(Icons.keyboard_arrow_up))
           ],
+        ),
+        const SizedBox(height: 16),
+        iconWithText2("small_mail", "Email : ${widget.account}"),
+        const SizedBox(height: 12),
+        if (widget.password != null)
+          iconWithText2("small_lock", "Password : ${widget.password!}"),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(child: optionTool("star")),
+            const SizedBox(width: 16),
+            Expanded(child: optionTool("edit")),
+            const SizedBox(width: 16),
+            Expanded(child: optionTool("share")),
+          ],
+        )
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (isOpen) return;
+        setState(() {
+          isOpen = !isOpen;
+        });
+      },
+      child: AnimatedSize(
+        duration: const Duration(milliseconds: 300),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+            child: isOpen ? _buildIsOpen() : _buildIsNotOpen(),
+          ),
         ),
       ),
     );
