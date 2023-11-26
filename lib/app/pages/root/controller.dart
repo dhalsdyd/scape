@@ -13,7 +13,12 @@ class RootPageController extends GetxController with StateMixin {
   int get pageIndex => _pageIndex.value;
   set pageIndex(int value) => _pageIndex.value = value;
 
-  List<Widget> pages = [HomePage(), VirtualPage(), InboxPage(), PrivacyPage()];
+  List<Widget> pages = [
+    const HomePage(),
+    const VirtualPage(),
+    const InboxPage(),
+    const PrivacyPage()
+  ];
 
   void changePage(int index) {
     _pageIndex.value = index;

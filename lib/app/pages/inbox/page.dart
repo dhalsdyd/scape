@@ -29,11 +29,11 @@ class InboxPage extends GetView<InboxPageController> {
                 selectedTabTextColor: Colors.black,
                 splashColor: FGBPColors.Primary20,
                 splashHighlightColor: FGBPColors.Primary40,
-                radius: Radius.circular(18),
+                radius: const Radius.circular(18),
                 controller: controller.tabController,
-                tabs: [
+                tabs: const [
                   SegmentTab(label: "Mail"),
-                  SegmentTab(label: "Notification"),
+                  SegmentTab(label: "Phone"),
                 ]),
             const SizedBox(height: 16),
             Expanded(
@@ -41,7 +41,7 @@ class InboxPage extends GetView<InboxPageController> {
                   TabBarView(controller: controller.tabController, children: [
                 ListView(
                   shrinkWrap: true,
-                  children: [
+                  children: const [
                     MailItem(),
                     MailItem(),
                     MailItem(),

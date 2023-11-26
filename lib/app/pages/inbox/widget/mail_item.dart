@@ -14,7 +14,7 @@ class MailItem extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            Get.to(() => InboxDetailPage());
+            Get.to(() => const InboxDetailPage());
           },
           child: Container(
             decoration: BoxDecoration(
@@ -35,7 +35,7 @@ class MailItem extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text("A", style: FGBPTextTheme.Text4_BOLD),
                         ),
                       )),
@@ -53,7 +53,7 @@ class MailItem extends StatelessWidget {
                         Shimmer.fromColors(
                             baseColor: FGBPColors.Gray20,
                             highlightColor: FGBPColors.Gray40,
-                            child: Text("광고성 메일을 차단하여 더욱 깨끗한 메일함을 유지하세요.",
+                            child: const Text("광고성 메일을 차단하여 더욱 깨끗한 메일함을 유지하세요.",
                                 style: FGBPTextTheme.Text1)),
                       ],
                     ),

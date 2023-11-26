@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
 import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
 import 'package:firebase_getx_boilerplate/app/pages/home/controller.dart';

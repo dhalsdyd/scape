@@ -23,16 +23,16 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ActionTabItem(assetName: "add_mail", label: "Create Mail"),
-              ActionTabItem(assetName: "virtual", label: "Create VA"),
+              const ActionTabItem(assetName: "add_mail", label: "Create Mail"),
+              const ActionTabItem(assetName: "virtual", label: "Create VA"),
               ActionTabItem(
                 assetName: "add_document",
                 label: "Add Account",
                 onTap: () {
-                  Get.to(() => AccountSettingPage());
+                  Get.to(() => const AccountSettingPage());
                 },
               ),
-              ActionTabItem(assetName: "inbox", label: "Inbox"),
+              const ActionTabItem(assetName: "inbox", label: "Inbox"),
             ],
           ),
           const SizedBox(height: 16),
@@ -50,10 +50,10 @@ class HomePage extends StatelessWidget {
               return Column(
                 children: [
                   AccountItem(
-                    image: accountMockData[index]['image'] ?? null,
+                    image: accountMockData[index]['image'],
                     name: accountMockData[index]["name"],
                     account: accountMockData[index]["account"],
-                    password: accountMockData[index]["password"] ?? null,
+                    password: accountMockData[index]["password"],
                   ),
                   const SizedBox(height: 8),
                 ],

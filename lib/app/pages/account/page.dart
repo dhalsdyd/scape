@@ -36,9 +36,9 @@ class AccountSettingPage extends StatelessWidget {
                         child: SvgPicture.asset("assets/icons/small_mail.svg"),
                       )
                     : null,
-                border: UnderlineInputBorder(
+                border: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black)),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                     borderSide:
                         BorderSide(color: FGBPColors.Primary40, width: 2.0)),
               ),
@@ -102,7 +102,7 @@ class AccountSettingPage extends StatelessWidget {
                 textfieldWithUnderLine("Name"),
                 GestureDetector(
                   onTap: () {
-                    Get.dialog(CustomFieldModal());
+                    Get.dialog(const CustomFieldModal());
                   },
                   child: Container(
                     decoration: BoxDecoration(

@@ -79,7 +79,7 @@ class _AccountItemState extends State<AccountItem> {
       onTap: () {
         switch (name) {
           case "edit":
-            Get.to(() => AccountDetailPage());
+            Get.to(() => const AccountDetailPage());
             break;
           case "delete":
             break;

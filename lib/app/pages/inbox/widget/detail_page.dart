@@ -42,7 +42,7 @@ class InboxDetailPage extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text("A", style: FGBPTextTheme.Text4_BOLD),
                       ),
                     )),
@@ -72,7 +72,7 @@ class InboxDetailPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            Divider(),
+            const Divider(),
             const SizedBox(height: 16),
             _shimmerText("광고성 메일을 차단하여 더욱 깨끗한 메일함을 유지하세요.",
                 style: FGBPTextTheme.Text1),

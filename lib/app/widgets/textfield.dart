@@ -153,3 +153,50 @@ class FGBPTextFormField extends StatelessWidget {
     );
   }
 }
+
+// Custom Dropdown Button with OverlayEntry
+class FGBPDropdownField extends StatelessWidget {
+  FGBPDropdownField({super.key});
+
+  final OverlayPortalController _overlayPortalController =
+      OverlayPortalController();
+  final _link = LayerLink();
+
+  @override
+  Widget build(BuildContext context) {
+    return CompositedTransformTarget(
+      link: _link,
+      child: OverlayPortal(
+          controller: _overlayPortalController,
+          overlayChildBuilder: (context) {
+            return GestureDetector(
+              onTap: () {
+                _overlayPortalController.hide();
+              },
+              child: CompositedTransformFollower(
+                link: _link,
+                targetAnchor: Alignment.bottomLeft,
+                child: Align(
+                  alignment: AlignmentDirectional.topStart,
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            );
+          },
+          child: GestureDetector(
+            onTap: () {
+              _overlayPortalController.show();
+            },
+            child: Container(
+              width: 200,
+              height: 200,
+              color: Colors.blue,
+            ),
+          )),
+    );
+  }
+}

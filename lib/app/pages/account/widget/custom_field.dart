@@ -58,7 +58,7 @@ class CustomFieldModal extends StatelessWidget {
             textfieldWithIcon("Field Name", "name", TextEditingController()),
             textfieldWithIcon("Field Name", "name", TextEditingController()),
             const SizedBox(height: 16),
-            FGBPSmallTextButton(text: "Save", color: FGBPColors.Primary40)
+            const FGBPSmallTextButton(text: "Save", color: FGBPColors.Primary40)
           ],
         ),
       ),
