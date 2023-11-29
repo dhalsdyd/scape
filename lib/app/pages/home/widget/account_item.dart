@@ -1,6 +1,6 @@
-import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
-import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
-import 'package:firebase_getx_boilerplate/app/pages/home/widget/detail_page.dart';
+import 'package:scape/app/core/theme/color_theme.dart';
+import 'package:scape/app/core/theme/text_theme.dart';
+import 'package:scape/app/pages/home/widget/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';

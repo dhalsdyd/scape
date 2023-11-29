@@ -1,7 +1,7 @@
-import 'package:firebase_getx_boilerplate/app/pages/home/page.dart';
-import 'package:firebase_getx_boilerplate/app/pages/inbox/page.dart';
-import 'package:firebase_getx_boilerplate/app/pages/privacy/page.dart';
-import 'package:firebase_getx_boilerplate/app/pages/virtual/page.dart';
+import 'package:scape/app/pages/home/page.dart';
+import 'package:scape/app/pages/inbox/page.dart';
+import 'package:scape/app/pages/privacy/page.dart';
+import 'package:scape/app/pages/virtual/page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

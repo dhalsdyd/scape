@@ -1,6 +1,6 @@
 {
-    "name": "firebase_getx_boilerplate",
-    "short_name": "firebase_getx_boilerplate",
+    "name": "scape",
+    "short_name": "scape",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

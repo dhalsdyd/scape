@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:firebase_getx_boilerplate/app/data/provider/api_interface.dart';
+import 'package:scape/app/data/provider/api_interface.dart';
 
 class ScapeInterceptor extends Interceptor {
   final Dio _dioInstance;

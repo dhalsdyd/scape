@@ -1,9 +1,9 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
-import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
-import 'package:firebase_getx_boilerplate/app/pages/virtual/controller.dart';
-import 'package:firebase_getx_boilerplate/app/pages/virtual/widget/identitiy_item.dart';
-import 'package:firebase_getx_boilerplate/app/widgets/textfield.dart';
+import 'package:scape/app/core/theme/color_theme.dart';
+import 'package:scape/app/core/theme/text_theme.dart';
+import 'package:scape/app/pages/virtual/controller.dart';
+import 'package:scape/app/pages/virtual/widget/identitiy_item.dart';
+import 'package:scape/app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';

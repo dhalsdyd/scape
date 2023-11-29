@@ -1,6 +1,6 @@
-import 'package:firebase_getx_boilerplate/app/pages/home/controller.dart';
-import 'package:firebase_getx_boilerplate/app/pages/inbox/controller.dart';
-import 'package:firebase_getx_boilerplate/app/pages/root/controller.dart';
+import 'package:scape/app/pages/home/controller.dart';
+import 'package:scape/app/pages/inbox/controller.dart';
+import 'package:scape/app/pages/root/controller.dart';
 import 'package:get/get.dart';
 
 class RootPageBinding implements Bindings {

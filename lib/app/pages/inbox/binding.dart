@@ -1,4 +1,4 @@
-import 'package:firebase_getx_boilerplate/app/pages/inbox/controller.dart';
+import 'package:scape/app/pages/inbox/controller.dart';
 import 'package:get/get.dart';
 
 class InboxPageBindings implements Bindings {

@@ -1,9 +1,10 @@
-import 'package:firebase_getx_boilerplate/app/routes/route.dart';
+import 'package:scape/app/data/service/auth/service.dart';
+import 'package:scape/app/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginMiddleware extends GetMiddleware {
-  //final AuthService authService = Get.find<AuthService>();
+  final AuthService authService = Get.find<AuthService>();
 
   LoginMiddleware({super.priority});
 

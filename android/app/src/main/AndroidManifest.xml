@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.develop.scape">
    <application
-        android:label="firebase_getx_boilerplate"
+        android:label="scape"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

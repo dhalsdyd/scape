@@ -1,9 +1,9 @@
-import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
-import 'package:firebase_getx_boilerplate/app/pages/account/page.dart';
-import 'package:firebase_getx_boilerplate/app/pages/home/mock/data.dart';
-import 'package:firebase_getx_boilerplate/app/pages/home/widget/account_item.dart';
-import 'package:firebase_getx_boilerplate/app/pages/home/widget/tab_item.dart';
-import 'package:firebase_getx_boilerplate/app/widgets/textfield.dart';
+import 'package:scape/app/core/theme/text_theme.dart';
+import 'package:scape/app/pages/account/page.dart';
+import 'package:scape/app/pages/home/mock/data.dart';
+import 'package:scape/app/pages/home/widget/account_item.dart';
+import 'package:scape/app/pages/home/widget/tab_item.dart';
+import 'package:scape/app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';

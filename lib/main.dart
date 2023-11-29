@@ -1,8 +1,8 @@
-import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
-import 'package:firebase_getx_boilerplate/app/data/initalize.dart';
-import 'package:firebase_getx_boilerplate/app/routes/pages.dart';
-import 'package:firebase_getx_boilerplate/app/routes/route.dart';
-import 'package:firebase_getx_boilerplate/app/translation/translation.dart';
+import 'package:scape/app/core/theme/color_theme.dart';
+import 'package:scape/app/data/initalize.dart';
+import 'package:scape/app/routes/pages.dart';
+import 'package:scape/app/routes/route.dart';
+import 'package:scape/app/translation/translation.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';

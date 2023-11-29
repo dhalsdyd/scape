@@ -1,8 +1,8 @@
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
-import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
-import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
-import 'package:firebase_getx_boilerplate/app/pages/inbox/controller.dart';
-import 'package:firebase_getx_boilerplate/app/pages/inbox/widget/mail_item.dart';
+import 'package:scape/app/core/theme/color_theme.dart';
+import 'package:scape/app/core/theme/text_theme.dart';
+import 'package:scape/app/pages/inbox/controller.dart';
+import 'package:scape/app/pages/inbox/widget/mail_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,3 +1,3 @@
 abstract class ScapeApiInterface {
-  Future<void> getInfo();
+  Future<Map> loginWithGoogle();
 }
