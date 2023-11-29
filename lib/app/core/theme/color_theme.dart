@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-abstract class FGBPColors {
+abstract class ScapeColors {
   /// Main Color
   static const mainColor = Colors.amber;
 
@@ -18,7 +18,6 @@ abstract class FGBPColors {
   /// grey
   static const grey = Colors.grey;
 
-
   static const Primary10 = Color(0xff052729);
   static const Primary20 = Color(0xff06585C);
   static const Primary30 = Color(0xff298387);
@@ -29,7 +28,4 @@ abstract class FGBPColors {
   static const Gray30 = Color(0xffA6A6A6);
   static const Gray40 = Color(0xffDDDDDD);
   static const Gray60 = Color(0xffEFEFEF);
-  
-
-
 }

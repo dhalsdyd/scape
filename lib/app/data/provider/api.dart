@@ -1,21 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_getx_boilerplate/app/data/provider/api_interface.dart';
 
-class FGBPInterceptor extends Interceptor {
+class ScapeInterceptor extends Interceptor {
   final Dio _dioInstance;
-  FGBPInterceptor(this._dioInstance);
+  ScapeInterceptor(this._dioInstance);
 
   //onRequest
   //onError
 }
 
-class FGBPApiProvider implements FGBPApiInterface {
+class ScapeApiProvider implements ScapeApiInterface {
   final Dio dio = Dio();
   final baseUrl = "https:...";
 
-  FGBPApiProvider() {
+  ScapeApiProvider() {
     dio.options.baseUrl = baseUrl;
-    dio.interceptors.add(FGBPInterceptor(dio));
+    dio.interceptors.add(ScapeInterceptor(dio));
   }
 
   @override

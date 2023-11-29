@@ -37,7 +37,7 @@ class IdentitiyItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: FGBPColors.Gray60),
+            border: Border.all(color: ScapeColors.Gray60),
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
@@ -57,11 +57,11 @@ class IdentitiyItem extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: FGBPTextTheme.Text3_MEDIUM),
+                    Text(title, style: ScapeTextTheme.Text3_MEDIUM),
                     const SizedBox(height: 4),
                     Text(subtitle,
                         style:
-                            FGBPTextTheme.Text1.copyWith(color: Colors.grey)),
+                            ScapeTextTheme.Text1.copyWith(color: Colors.grey)),
                   ],
                 ),
               ],
@@ -113,7 +113,7 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: FGBPColors.Gray60),
+            border: Border.all(color: ScapeColors.Gray60),
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
@@ -140,10 +140,10 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(widget.title,
-                                  style: FGBPTextTheme.Text3_MEDIUM),
+                                  style: ScapeTextTheme.Text3_MEDIUM),
                               const SizedBox(height: 4),
                               Text(widget.subtitle,
-                                  style: FGBPTextTheme.Text1.copyWith(
+                                  style: ScapeTextTheme.Text1.copyWith(
                                       color: Colors.grey)),
                             ],
                           ),
@@ -193,23 +193,23 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
           width: 4,
           height: 4,
           decoration: const BoxDecoration(
-              color: FGBPColors.Primary40, shape: BoxShape.circle),
+              color: ScapeColors.Primary40, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8),
-        Text(title, style: FGBPTextTheme.Text2_MEDIUM),
+        Text(title, style: ScapeTextTheme.Text2_MEDIUM),
         const SizedBox(width: 8),
         // textfield with underlin
         const Expanded(
           child: SizedBox(
             height: 24,
             child: TextField(
-              style: FGBPTextTheme.Text2,
+              style: ScapeTextTheme.Text2,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: FGBPColors.Gray60),
+                  borderSide: BorderSide(color: ScapeColors.Gray60),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: FGBPColors.Primary40),
+                  borderSide: BorderSide(color: ScapeColors.Primary40),
                 ),
               ),
             ),
@@ -226,14 +226,14 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
           width: 4,
           height: 4,
           decoration: const BoxDecoration(
-              color: FGBPColors.Primary40, shape: BoxShape.circle),
+              color: ScapeColors.Primary40, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8),
-        Text(title, style: FGBPTextTheme.Text2_MEDIUM),
+        Text(title, style: ScapeTextTheme.Text2_MEDIUM),
         const SizedBox(width: 8),
         // textfield with underlin
         Expanded(
-          child: SizedBox(height: 24, child: FGBPDropdownField()),
+          child: SizedBox(height: 24, child: ScapeDropdownField()),
         )
       ],
     );
@@ -263,7 +263,7 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
                           ? _buildHeaderOptionIsOpen()
                           : _buildHeaderOptionIsNotOpen()),
                   const SizedBox(width: 10),
-                  const Text("sdnjsndjsnjdnj", style: FGBPTextTheme.Text3_BOLD)
+                  const Text("sdnjsndjsnjdnj", style: ScapeTextTheme.Text3_BOLD)
                 ],
               ),
             ),
@@ -277,7 +277,7 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
                 padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
                 child: Text(
                   "Copy",
-                  style: FGBPTextTheme.Text1,
+                  style: ScapeTextTheme.Text1,
                 ),
               ),
             )
@@ -296,7 +296,7 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
             children: [
               Container(width: 32, height: 32, color: Colors.transparent),
               const SizedBox(width: 10),
-              const Text("sdnjsndjsnjdnj", style: FGBPTextTheme.Text3_BOLD)
+              const Text("sdnjsndjsnjdnj", style: ScapeTextTheme.Text3_BOLD)
             ],
           ),
         ),
@@ -310,7 +310,7 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
             padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
             child: Text(
               "Copy",
-              style: FGBPTextTheme.Text1,
+              style: ScapeTextTheme.Text1,
             ),
           ),
         )

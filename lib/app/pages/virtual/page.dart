@@ -20,7 +20,7 @@ class VirtualPage extends GetView<VirtualPageController> {
     return DottedBorder(
       borderType: BorderType.RRect,
       radius: const Radius.circular(8),
-      color: FGBPColors.Primary40,
+      color: ScapeColors.Primary40,
       child: const Padding(
         padding: EdgeInsets.symmetric(vertical: 12),
         child: Center(child: Text("🦕 Select Identity from below")),
@@ -40,14 +40,14 @@ class VirtualPage extends GetView<VirtualPageController> {
             children: [
               const Text(
                 "Virtual Identity",
-                style: FGBPTextTheme.Text4_BOLD,
+                style: ScapeTextTheme.Text4_BOLD,
               ),
               const SizedBox(
                 height: 8,
               ),
               const Text(
                 "Generated Identity",
-                style: FGBPTextTheme.Text3,
+                style: ScapeTextTheme.Text3,
               ),
               const SizedBox(
                 height: 8,
@@ -56,7 +56,7 @@ class VirtualPage extends GetView<VirtualPageController> {
               const SizedBox(height: 16),
               const Text(
                 "Available Identity",
-                style: FGBPTextTheme.Text3,
+                style: ScapeTextTheme.Text3,
               ),
               const SizedBox(height: 8),
               Expanded(
@@ -87,7 +87,7 @@ class VirtualPage extends GetView<VirtualPageController> {
                 ),
               ),
               const SizedBox(height: 8),
-              FGBPTextField(
+              ScapeTextField(
                 hintText: "Search Information Types",
                 prefixIcon: SvgPicture.asset("assets/icons/search.svg"),
               ),

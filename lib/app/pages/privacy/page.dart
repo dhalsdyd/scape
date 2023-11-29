@@ -15,7 +15,7 @@ class PrivacyPage extends GetView<PrivacyPageController> {
         child: Column(children: [
           Text(
             "Search Privacy Policy",
-            style: FGBPTextTheme.Text4_BOLD,
+            style: ScapeTextTheme.Text4_BOLD,
           ),
         ]),
       ),

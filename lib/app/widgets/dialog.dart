@@ -3,30 +3,30 @@ import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
 import 'package:firebase_getx_boilerplate/app/widgets/button.dart';
 import 'package:flutter/material.dart';
 
-class FGBPDialogAction {
+class ScapeDialogAction {
   final String title;
   final void Function()? onTap;
   final bool isHighlighted;
-  FGBPDialogAction(
+  ScapeDialogAction(
       {required this.title, this.onTap, this.isHighlighted = false});
 }
 
-class FGBPDialogActionButton extends StatelessWidget {
-  const FGBPDialogActionButton(this.action, {Key? key}) : super(key: key);
-  final FGBPDialogAction action;
+class ScapeDialogActionButton extends StatelessWidget {
+  const ScapeDialogActionButton(this.action, {Key? key}) : super(key: key);
+  final ScapeDialogAction action;
 
   @override
   Widget build(BuildContext context) {
-    return FGBPMediumTextButton(
+    return ScapeMediumTextButton(
       text: action.title,
       onTap: action.onTap,
-      color: action.isHighlighted ? FGBPColors.mainColor : FGBPColors.black,
+      color: action.isHighlighted ? ScapeColors.mainColor : ScapeColors.black,
     );
   }
 }
 
-class FGBPDialog extends StatelessWidget {
-  const FGBPDialog({
+class ScapeDialog extends StatelessWidget {
+  const ScapeDialog({
     Key? key,
     required this.title,
     required this.content,
@@ -36,7 +36,7 @@ class FGBPDialog extends StatelessWidget {
   final String title;
   final String content;
 
-  final List<FGBPDialogAction> actions;
+  final List<ScapeDialogAction> actions;
 
   @override
   Widget build(BuildContext context) {
@@ -49,15 +49,15 @@ class FGBPDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(title, style: FGBPTextTheme.bold20),
+            Text(title, style: ScapeTextTheme.bold20),
             const SizedBox(height: 12),
-            Text(content, style: FGBPTextTheme.regular12),
+            Text(content, style: ScapeTextTheme.regular12),
             const SizedBox(height: 12),
             for (var action in actions)
               Column(
                 children: [
                   const SizedBox(height: 12),
-                  FGBPDialogActionButton(action),
+                  ScapeDialogActionButton(action),
                 ],
               ),
           ],

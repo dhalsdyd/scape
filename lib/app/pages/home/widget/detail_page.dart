@@ -14,7 +14,7 @@ class AccountDetailPage extends GetView<HomePageController> {
       decoration: BoxDecoration(
         color: const Color(0xfff7f7f7),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: FGBPColors.Gray60),
+        border: Border.all(color: ScapeColors.Gray60),
       ),
       child: Row(
         children: [
@@ -25,9 +25,9 @@ class AccountDetailPage extends GetView<HomePageController> {
               Text.rich(TextSpan(children: [
                 TextSpan(
                     text: "$title: ",
-                    style: FGBPTextTheme.Text3_MEDIUM.copyWith(
+                    style: ScapeTextTheme.Text3_MEDIUM.copyWith(
                         fontWeight: FontWeight.bold)),
-                TextSpan(text: content, style: FGBPTextTheme.Text3_MEDIUM)
+                TextSpan(text: content, style: ScapeTextTheme.Text3_MEDIUM)
               ]))
             ]),
           ),
@@ -41,7 +41,7 @@ class AccountDetailPage extends GetView<HomePageController> {
               padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
               child: Text(
                 "Copy",
-                style: FGBPTextTheme.Text1,
+                style: ScapeTextTheme.Text1,
               ),
             ),
           )
@@ -56,7 +56,7 @@ class AccountDetailPage extends GetView<HomePageController> {
       decoration: BoxDecoration(
         color: const Color(0xfff7f7f7),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: FGBPColors.Gray60),
+        border: Border.all(color: ScapeColors.Gray60),
       ),
       child: ListView.builder(
           shrinkWrap: true,
@@ -66,11 +66,11 @@ class AccountDetailPage extends GetView<HomePageController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(controller.logMockData[index]["date"],
-                    style:
-                        FGBPTextTheme.Text1.copyWith(color: FGBPColors.Gray20)),
+                    style: ScapeTextTheme.Text1.copyWith(
+                        color: ScapeColors.Gray20)),
                 Text(
                   controller.logMockData[index]["data"],
-                  style: FGBPTextTheme.Text2,
+                  style: ScapeTextTheme.Text2,
                 )
               ],
             );
@@ -94,7 +94,7 @@ class AccountDetailPage extends GetView<HomePageController> {
         ],
         title: const Text(
           'Account',
-          style: FGBPTextTheme.Text4_BOLD,
+          style: ScapeTextTheme.Text4_BOLD,
         ),
         centerTitle: true,
       ),
@@ -105,7 +105,7 @@ class AccountDetailPage extends GetView<HomePageController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Credentials', style: FGBPTextTheme.Text4_BOLD),
+              const Text('Credentials', style: ScapeTextTheme.Text4_BOLD),
               SvgPicture.asset("assets/icons/edit.svg")
             ],
           ),
@@ -115,26 +115,26 @@ class AccountDetailPage extends GetView<HomePageController> {
           credentialCard(
               "small_key_filled", "Password", controller.password.value),
           const SizedBox(height: 32),
-          const Text('Logs', style: FGBPTextTheme.Text4_BOLD),
+          const Text('Logs', style: ScapeTextTheme.Text4_BOLD),
           const SizedBox(height: 8),
           logCard(),
           const SizedBox(height: 32),
           Text('Danger Zone',
-              style: FGBPTextTheme.Text4_BOLD.copyWith(color: Colors.red)),
+              style: ScapeTextTheme.Text4_BOLD.copyWith(color: Colors.red)),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
               color: const Color(0xfff7f7f7),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: FGBPColors.Gray60),
+              border: Border.all(color: ScapeColors.Gray60),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SvgPicture.asset("assets/icons/trash.svg"),
                 const SizedBox(width: 8),
-                const Text('Delete Account', style: FGBPTextTheme.Text3),
+                const Text('Delete Account', style: ScapeTextTheme.Text3),
               ],
             ),
           ),

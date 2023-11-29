@@ -20,15 +20,15 @@ class MailItem extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: FGBPColors.Gray60),
+              border: Border.all(color: ScapeColors.Gray60),
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
               child: Row(
                 children: [
                   Shimmer.fromColors(
-                      baseColor: FGBPColors.Gray20,
-                      highlightColor: FGBPColors.Gray40,
+                      baseColor: ScapeColors.Gray20,
+                      highlightColor: ScapeColors.Gray40,
                       child: Container(
                         width: 32,
                         height: 32,
@@ -36,7 +36,7 @@ class MailItem extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Center(
-                          child: Text("A", style: FGBPTextTheme.Text4_BOLD),
+                          child: Text("A", style: ScapeTextTheme.Text4_BOLD),
                         ),
                       )),
                   const SizedBox(width: 10),
@@ -45,16 +45,16 @@ class MailItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Shimmer.fromColors(
-                            baseColor: FGBPColors.Gray20,
-                            highlightColor: FGBPColors.Gray40,
+                            baseColor: ScapeColors.Gray20,
+                            highlightColor: ScapeColors.Gray40,
                             child: const Text("광고성 메일",
-                                style: FGBPTextTheme.Text3_MEDIUM)),
+                                style: ScapeTextTheme.Text3_MEDIUM)),
                         const SizedBox(height: 4),
                         Shimmer.fromColors(
-                            baseColor: FGBPColors.Gray20,
-                            highlightColor: FGBPColors.Gray40,
+                            baseColor: ScapeColors.Gray20,
+                            highlightColor: ScapeColors.Gray40,
                             child: const Text("광고성 메일을 차단하여 더욱 깨끗한 메일함을 유지하세요.",
-                                style: FGBPTextTheme.Text1)),
+                                style: ScapeTextTheme.Text1)),
                       ],
                     ),
                   ),

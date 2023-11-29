@@ -2,7 +2,7 @@ import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
 import 'package:firebase_getx_boilerplate/app/core/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 
-class FGBPTextField extends StatelessWidget {
+class ScapeTextField extends StatelessWidget {
   final String? label;
   final String? hintText;
   final bool autofocus;
@@ -16,7 +16,7 @@ class FGBPTextField extends StatelessWidget {
   final bool? enableInteractiveSelection;
   final Widget? prefixIcon;
 
-  const FGBPTextField({
+  const ScapeTextField({
     Key? key,
     this.label,
     this.hintText,
@@ -40,7 +40,7 @@ class FGBPTextField extends StatelessWidget {
       enableSuggestions: !isPassword,
       autocorrect: !isPassword,
       autofocus: autofocus,
-      style: FGBPTextTheme.Text2,
+      style: ScapeTextTheme.Text2,
       cursorColor: Colors.black,
       keyboardType: textInputType,
       maxLength: maxLength,
@@ -54,22 +54,23 @@ class FGBPTextField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-              width: 1, style: BorderStyle.solid, color: FGBPColors.Gray60),
+              width: 1, style: BorderStyle.solid, color: ScapeColors.Gray60),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-              width: 1, style: BorderStyle.solid, color: FGBPColors.Gray60),
+              width: 1, style: BorderStyle.solid, color: ScapeColors.Gray60),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-              width: 1, style: BorderStyle.solid, color: FGBPColors.Primary40),
+              width: 1, style: BorderStyle.solid, color: ScapeColors.Primary40),
         ),
         counterText: "",
-        fillColor: FGBPColors.white,
+        fillColor: ScapeColors.white,
         filled: true,
-        hintStyle: FGBPTextTheme.Text2.copyWith(color: const Color(0xff777777)),
+        hintStyle:
+            ScapeTextTheme.Text2.copyWith(color: const Color(0xff777777)),
         prefixIcon: Padding(
           padding: const EdgeInsets.all(10),
           child: prefixIcon,
@@ -84,7 +85,7 @@ class FGBPTextField extends StatelessWidget {
   }
 }
 
-class FGBPTextFormField extends StatelessWidget {
+class ScapeTextFormField extends StatelessWidget {
   final String? label;
   final String? hintText;
   final bool autofocus;
@@ -98,7 +99,7 @@ class FGBPTextFormField extends StatelessWidget {
   final void Function()? onEditingComplete;
   final bool? enableInteractiveSelection;
 
-  const FGBPTextFormField({
+  const ScapeTextFormField({
     Key? key,
     this.label,
     this.hintText,
@@ -123,7 +124,7 @@ class FGBPTextFormField extends StatelessWidget {
       enableSuggestions: !isPassword,
       autocorrect: !isPassword,
       autofocus: autofocus,
-      style: FGBPTextTheme.regular20,
+      style: ScapeTextTheme.regular20,
       onEditingComplete: onEditingComplete,
       cursorColor: Colors.black,
       keyboardType: textInputType,
@@ -141,9 +142,9 @@ class FGBPTextFormField extends StatelessWidget {
           ),
         ),
         counterText: "",
-        fillColor: FGBPColors.black,
+        fillColor: ScapeColors.black,
         filled: true,
-        hintStyle: FGBPTextTheme.regular20,
+        hintStyle: ScapeTextTheme.regular20,
         floatingLabelStyle: const TextStyle(
             color: Color.fromRGBO(0, 0, 0, 0.4),
             fontWeight: FontWeight.w500,
@@ -155,8 +156,8 @@ class FGBPTextFormField extends StatelessWidget {
 }
 
 // Custom Dropdown Button with OverlayEntry
-class FGBPDropdownField extends StatelessWidget {
-  FGBPDropdownField({super.key});
+class ScapeDropdownField extends StatelessWidget {
+  ScapeDropdownField({super.key});
 
   final OverlayPortalController _overlayPortalController =
       OverlayPortalController();

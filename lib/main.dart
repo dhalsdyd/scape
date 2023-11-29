@@ -24,7 +24,7 @@ void main() async {
       theme: ThemeData(
           fontFamily: "Pretendard",
           textSelectionTheme: const TextSelectionThemeData(
-              selectionColor: FGBPColors.Primary40)),
+              selectionColor: ScapeColors.Primary40)),
       locale: GetCurrentLocale.currentDeviceLocale,
       fallbackLocale: GetCurrentLocale.fallBackLocale,
       //routingCallback

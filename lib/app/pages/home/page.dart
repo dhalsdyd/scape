@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text('Actions', style: FGBPTextTheme.Text4_BOLD),
+          const Text('Actions', style: ScapeTextTheme.Text4_BOLD),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Accounts', style: FGBPTextTheme.Text4_BOLD),
+              const Text('Accounts', style: ScapeTextTheme.Text4_BOLD),
               SvgPicture.asset("assets/icons/filter.svg")
             ],
           ),
@@ -64,7 +64,7 @@ class HomePage extends StatelessWidget {
             itemCount: accountMockData.length,
           )),
           const SizedBox(height: 8),
-          FGBPTextField(
+          ScapeTextField(
             hintText: "Search Account",
             prefixIcon: SvgPicture.asset("assets/icons/search.svg"),
           ),

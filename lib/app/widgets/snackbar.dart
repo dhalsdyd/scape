@@ -2,10 +2,10 @@ import 'package:firebase_getx_boilerplate/app/core/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FGBPSnackBar {
+class ScapeSnackBar {
   static void open(
     String title, {
-    Color backgroundColor = FGBPColors.mainColor,
+    Color backgroundColor = ScapeColors.mainColor,
     Color textColor = Colors.white,
   }) {
     Get.rawSnackbar(
@@ -26,11 +26,11 @@ class FGBPSnackBar {
   }
 }
 
-class FGBPErrorSnackBar {
+class ScapeErrorSnackBar {
   void open(String title, {String? message}) {
-    FGBPSnackBar.open(
+    ScapeSnackBar.open(
       title,
-      backgroundColor: FGBPColors.grey,
+      backgroundColor: ScapeColors.grey,
       textColor: Colors.white,
     );
   }

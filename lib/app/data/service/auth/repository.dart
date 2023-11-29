@@ -1,7 +1,7 @@
 import 'package:firebase_getx_boilerplate/app/data/provider/api_interface.dart';
 
 class AuthRepository {
-  final FGBPApiInterface api;
+  final ScapeApiInterface api;
 
   AuthRepository(this.api);
 

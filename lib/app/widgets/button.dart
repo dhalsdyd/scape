@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
 
-class FGBPIconButton extends StatelessWidget {
+class ScapeIconButton extends StatelessWidget {
   final String iconPath;
   final int? badgeNumber;
   final void Function()? onTap;
-  const FGBPIconButton(this.iconPath, {this.badgeNumber, this.onTap, Key? key})
+  const ScapeIconButton(this.iconPath, {this.badgeNumber, this.onTap, Key? key})
       : super(key: key);
 
   Widget _badge() {
@@ -19,7 +19,7 @@ class FGBPIconButton extends StatelessWidget {
           width: 16,
           height: 16,
           decoration: BoxDecoration(
-            color: FGBPColors.mainColor,
+            color: ScapeColors.mainColor,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(
@@ -46,7 +46,7 @@ class FGBPIconButton extends StatelessWidget {
         width: 48,
         height: 48,
         decoration: BoxDecoration(
-          color: FGBPColors.black,
+          color: ScapeColors.black,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Stack(
@@ -58,7 +58,7 @@ class FGBPIconButton extends StatelessWidget {
                   width: 24,
                   height: 24,
                   child:
-                      SvgPicture.asset(iconPath, color: FGBPColors.mainColor),
+                      SvgPicture.asset(iconPath, color: ScapeColors.mainColor),
                 ),
               ),
             ),
@@ -70,7 +70,7 @@ class FGBPIconButton extends StatelessWidget {
   }
 }
 
-class FGBPKeyboardReactiveButton extends StatelessWidget {
+class ScapeKeyboardReactiveButton extends StatelessWidget {
   final Widget child;
   final double? width;
   final EdgeInsets innerPadding;
@@ -78,14 +78,14 @@ class FGBPKeyboardReactiveButton extends StatelessWidget {
   final void Function()? onTap;
   final Color color;
   final bool disabled;
-  const FGBPKeyboardReactiveButton({
+  const ScapeKeyboardReactiveButton({
     Key? key,
     required this.child,
     this.width,
     this.innerPadding = const EdgeInsets.all(16),
     this.onTap,
     this.padding = const EdgeInsets.all(0),
-    this.color = FGBPColors.mainColor,
+    this.color = ScapeColors.mainColor,
     this.disabled = false,
   }) : super(key: key);
 
@@ -151,20 +151,20 @@ class FGBPKeyboardReactiveButton extends StatelessWidget {
   }
 }
 
-class FGBPBaseButton extends StatelessWidget {
+class ScapeBaseButton extends StatelessWidget {
   final Widget child;
   final double? width;
   final EdgeInsets padding;
   final void Function()? onTap;
   final Color color;
   final bool disabled;
-  const FGBPBaseButton(
+  const ScapeBaseButton(
       {Key? key,
       required this.child,
       required this.padding,
       this.onTap,
       this.width,
-      this.color = FGBPColors.mainColor,
+      this.color = ScapeColors.mainColor,
       this.disabled = false})
       : super(key: key);
 
@@ -203,24 +203,24 @@ class FGBPBaseButton extends StatelessWidget {
   }
 }
 
-class FGBPLargeButton extends StatelessWidget {
+class ScapeLargeButton extends StatelessWidget {
   final Widget child;
   final double? width;
   final void Function()? onTap;
   final Color color;
   final bool disabled;
-  const FGBPLargeButton({
+  const ScapeLargeButton({
     Key? key,
     required this.child,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = ScapeColors.mainColor,
     this.disabled = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FGBPBaseButton(
+    return ScapeBaseButton(
       padding: const EdgeInsets.all(24),
       width: width,
       onTap: onTap,
@@ -231,26 +231,26 @@ class FGBPLargeButton extends StatelessWidget {
   }
 }
 
-class FGBPLargeTextButton extends StatelessWidget {
+class ScapeLargeTextButton extends StatelessWidget {
   final String text;
   final double? width;
   final void Function()? onTap;
   final Color color;
   final Color textColor;
   final bool disabled;
-  const FGBPLargeTextButton({
+  const ScapeLargeTextButton({
     Key? key,
     required this.text,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = ScapeColors.mainColor,
     this.textColor = Colors.white,
     this.disabled = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FGBPLargeButton(
+    return ScapeLargeButton(
       width: width,
       onTap: onTap,
       color: color,
@@ -262,24 +262,24 @@ class FGBPLargeTextButton extends StatelessWidget {
   }
 }
 
-class FGBPMediumButton extends StatelessWidget {
+class ScapeMediumButton extends StatelessWidget {
   final Widget child;
   final double? width;
   final void Function()? onTap;
   final Color color;
   final bool disabled;
-  const FGBPMediumButton({
+  const ScapeMediumButton({
     Key? key,
     required this.child,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = ScapeColors.mainColor,
     this.disabled = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FGBPBaseButton(
+    return ScapeBaseButton(
       padding: const EdgeInsets.all(16),
       width: width,
       onTap: onTap,
@@ -290,26 +290,26 @@ class FGBPMediumButton extends StatelessWidget {
   }
 }
 
-class FGBPMediumTextButton extends StatelessWidget {
+class ScapeMediumTextButton extends StatelessWidget {
   final String text;
   final double? width;
   final void Function()? onTap;
   final Color color;
   final Color textColor;
   final bool disabled;
-  const FGBPMediumTextButton({
+  const ScapeMediumTextButton({
     Key? key,
     required this.text,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = ScapeColors.mainColor,
     this.textColor = Colors.white,
     this.disabled = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FGBPMediumButton(
+    return ScapeMediumButton(
       width: width,
       onTap: onTap,
       color: color,
@@ -321,24 +321,24 @@ class FGBPMediumTextButton extends StatelessWidget {
   }
 }
 
-class FGBPSmallButton extends StatelessWidget {
+class ScapeSmallButton extends StatelessWidget {
   final Widget child;
   final double? width;
   final void Function()? onTap;
   final Color color;
   final bool disabled;
-  const FGBPSmallButton({
+  const ScapeSmallButton({
     Key? key,
     required this.child,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = ScapeColors.mainColor,
     this.disabled = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FGBPBaseButton(
+    return ScapeBaseButton(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       width: width,
       onTap: onTap,
@@ -349,26 +349,26 @@ class FGBPSmallButton extends StatelessWidget {
   }
 }
 
-class FGBPSmallTextButton extends StatelessWidget {
+class ScapeSmallTextButton extends StatelessWidget {
   final String text;
   final double? width;
   final void Function()? onTap;
   final Color color;
   final Color textColor;
   final bool disabled;
-  const FGBPSmallTextButton({
+  const ScapeSmallTextButton({
     Key? key,
     required this.text,
     this.onTap,
     this.width,
-    this.color = FGBPColors.mainColor,
+    this.color = ScapeColors.mainColor,
     this.textColor = Colors.white,
     this.disabled = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FGBPSmallButton(
+    return ScapeSmallButton(
       width: width,
       onTap: onTap,
       color: color,

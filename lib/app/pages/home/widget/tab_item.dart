@@ -29,7 +29,7 @@ class ActionTabItem extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Text(label, style: FGBPTextTheme.Text1),
+        Text(label, style: ScapeTextTheme.Text1),
       ],
     );
   }

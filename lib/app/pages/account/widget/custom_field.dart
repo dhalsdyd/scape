@@ -44,7 +44,7 @@ class CustomFieldModal extends StatelessWidget {
                 ),
                 const Text(
                   "Custom Field",
-                  style: FGBPTextTheme.Text3_BOLD,
+                  style: ScapeTextTheme.Text3_BOLD,
                 ),
                 IconButton(
                   onPressed: () {},
@@ -58,7 +58,8 @@ class CustomFieldModal extends StatelessWidget {
             textfieldWithIcon("Field Name", "name", TextEditingController()),
             textfieldWithIcon("Field Name", "name", TextEditingController()),
             const SizedBox(height: 16),
-            const FGBPSmallTextButton(text: "Save", color: FGBPColors.Primary40)
+            const ScapeSmallTextButton(
+                text: "Save", color: ScapeColors.Primary40)
           ],
         ),
       ),

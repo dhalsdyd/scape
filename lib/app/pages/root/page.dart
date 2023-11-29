@@ -14,7 +14,7 @@ class RootPage extends GetView<RootPageController> {
       label: label,
       activeIcon: SvgPicture.asset(
         assetName,
-        color: FGBPColors.Primary10,
+        color: ScapeColors.Primary10,
       ),
     );
   }
@@ -43,13 +43,13 @@ class RootPage extends GetView<RootPageController> {
               _bottomNavigationBarItem('assets/icons/mail.svg', 'Inbox'),
               _bottomNavigationBarItem('assets/icons/privacy.svg', 'Privacy'),
             ],
-            selectedItemColor: FGBPColors.Primary10,
-            unselectedItemColor: FGBPColors.Gray10,
+            selectedItemColor: ScapeColors.Primary10,
+            unselectedItemColor: ScapeColors.Gray10,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.white,
             elevation: 0,
-            selectedLabelStyle: FGBPTextTheme.regular12,
+            selectedLabelStyle: ScapeTextTheme.regular12,
             currentIndex: controller.pageIndex,
             onTap: controller.changePage,
           ),

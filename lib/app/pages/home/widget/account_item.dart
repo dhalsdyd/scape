@@ -44,7 +44,7 @@ class _AccountItemState extends State<AccountItem> {
         ),
         child: Center(
           child: Text(widget.name[0],
-              style: FGBPTextTheme.Text4_BOLD.copyWith(color: Colors.white)),
+              style: ScapeTextTheme.Text4_BOLD.copyWith(color: Colors.white)),
         ),
       );
     }
@@ -57,7 +57,7 @@ class _AccountItemState extends State<AccountItem> {
         const SizedBox(width: 2),
         Text(label,
             style:
-                FGBPTextTheme.Text1.copyWith(color: const Color(0xff8f8f8f))),
+                ScapeTextTheme.Text1.copyWith(color: const Color(0xff8f8f8f))),
       ],
     );
   }
@@ -67,7 +67,7 @@ class _AccountItemState extends State<AccountItem> {
       children: [
         SvgPicture.asset("assets/icons/$assetName.svg"),
         const SizedBox(width: 2),
-        Text(label, style: FGBPTextTheme.Text2),
+        Text(label, style: ScapeTextTheme.Text2),
       ],
     );
   }
@@ -102,7 +102,7 @@ class _AccountItemState extends State<AccountItem> {
             children: [
               SvgPicture.asset("assets/icons/$name.svg"),
               const SizedBox(width: 8),
-              Text(capitalize(name), style: FGBPTextTheme.Text1),
+              Text(capitalize(name), style: ScapeTextTheme.Text1),
             ],
           ),
         ),
@@ -121,7 +121,7 @@ class _AccountItemState extends State<AccountItem> {
         padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
         child: Text(
           "Copy",
-          style: FGBPTextTheme.Text1,
+          style: ScapeTextTheme.Text1,
         ),
       ),
     );
@@ -138,7 +138,7 @@ class _AccountItemState extends State<AccountItem> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.name, style: FGBPTextTheme.Text3_MEDIUM),
+                Text(widget.name, style: ScapeTextTheme.Text3_MEDIUM),
                 const SizedBox(height: 4),
                 iconWithText("small_mail", widget.account),
                 const SizedBox(height: 2),
@@ -173,11 +173,11 @@ class _AccountItemState extends State<AccountItem> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.name, style: FGBPTextTheme.Text3_MEDIUM),
+                Text(widget.name, style: ScapeTextTheme.Text3_MEDIUM),
                 const SizedBox(height: 4),
                 Text(
                   "Last used at 2023.11.09",
-                  style: FGBPTextTheme.Text1.copyWith(
+                  style: ScapeTextTheme.Text1.copyWith(
                       color: const Color(0xff868686)),
                 )
               ],
@@ -223,7 +223,7 @@ class _AccountItemState extends State<AccountItem> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: FGBPColors.Gray60),
+          border: Border.all(color: ScapeColors.Gray60),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),

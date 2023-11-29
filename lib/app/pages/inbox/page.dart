@@ -19,16 +19,16 @@ class InboxPage extends GetView<InboxPageController> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Text(
               "Inbox",
-              style: FGBPTextTheme.Text4_BOLD,
+              style: ScapeTextTheme.Text4_BOLD,
             ),
             const SizedBox(height: 16),
             SegmentedTabControl(
-                backgroundColor: FGBPColors.Gray40,
-                textStyle: FGBPTextTheme.Text3_BOLD,
-                tabTextColor: FGBPColors.Gray20,
+                backgroundColor: ScapeColors.Gray40,
+                textStyle: ScapeTextTheme.Text3_BOLD,
+                tabTextColor: ScapeColors.Gray20,
                 selectedTabTextColor: Colors.black,
-                splashColor: FGBPColors.Primary20,
-                splashHighlightColor: FGBPColors.Primary40,
+                splashColor: ScapeColors.Primary20,
+                splashHighlightColor: ScapeColors.Primary40,
                 radius: const Radius.circular(18),
                 controller: controller.tabController,
                 tabs: const [

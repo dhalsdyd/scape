@@ -18,18 +18,18 @@ class AccountSettingPage extends StatelessWidget {
         Stack(
           children: [
             TextField(
-              cursorColor: FGBPColors.Primary40,
+              cursorColor: ScapeColors.Primary40,
               obscureText: isPassword,
-              style: FGBPTextTheme.Text3,
+              style: ScapeTextTheme.Text3,
               textAlign: center ? TextAlign.center : TextAlign.start,
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
-                focusColor: FGBPColors.Primary40,
-                fillColor: FGBPColors.Primary40,
-                hoverColor: FGBPColors.Primary40,
+                focusColor: ScapeColors.Primary40,
+                fillColor: ScapeColors.Primary40,
+                hoverColor: ScapeColors.Primary40,
                 contentPadding: const EdgeInsets.symmetric(vertical: 10),
                 hintText: hintText,
-                hintStyle: FGBPTextTheme.Text3.copyWith(color: Colors.grey),
+                hintStyle: ScapeTextTheme.Text3.copyWith(color: Colors.grey),
                 prefixIcon: preffix
                     ? Padding(
                         padding: const EdgeInsets.all(10),
@@ -40,7 +40,7 @@ class AccountSettingPage extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.black)),
                 focusedBorder: const UnderlineInputBorder(
                     borderSide:
-                        BorderSide(color: FGBPColors.Primary40, width: 2.0)),
+                        BorderSide(color: ScapeColors.Primary40, width: 2.0)),
               ),
             ),
             if (editable)
@@ -68,7 +68,7 @@ class AccountSettingPage extends StatelessWidget {
                             EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
                         child: Text(
                           "Edit",
-                          style: FGBPTextTheme.Text1,
+                          style: ScapeTextTheme.Text1,
                         ),
                       ),
                     ),
@@ -115,7 +115,7 @@ class AccountSettingPage extends StatelessWidget {
                           EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
                       child: Text(
                         "+ Account Information",
-                        style: FGBPTextTheme.Text1,
+                        style: ScapeTextTheme.Text1,
                       ),
                     ),
                   ),
