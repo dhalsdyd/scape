@@ -1,20 +1,26 @@
 import 'dart:async';
-
-import 'package:dio/dio.dart';
+import 'package:scape/app/core/util/error.dart';
+import 'package:scape/app/core/util/google.dart';
 import 'package:scape/app/data/service/auth/repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:scape/app/routes/route.dart';
 
 class AuthService extends GetxService {
+  Completer<void>? _refreshTokenApiCompleter;
+
   final AuthRepository repository;
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
+  final GoogleSignHelper _googleSignHelper = GoogleSignHelper();
 
+  final Rx<String?> _googleIdToken = Rx(null);
   final Rx<String?> _accessToken = Rx(null);
   final Rx<String?> _refreshToken = Rx(null);
 
   /// google sign-in과 onboarding 과정이 완료되었을 경우 true
   bool get isAuthenticated => _accessToken.value != null;
 
+  String? get googleIdToken => _googleIdToken.value;
   String? get accessToken => _accessToken.value;
   String? get refreshToken => _refreshToken.value;
 
@@ -36,35 +42,41 @@ class AuthService extends GetxService {
     _refreshToken.value = token;
   }
 
-  Future<String> registerUser(
-      String email, String password, String name, String birth) async {
+  Future<void> logintWithGoogle() async {
     try {
-      Map registerResult =
-          await repository.registerUser(email, password, name, birth);
-      print(registerResult);
-      if (registerResult["status"] == "success") {
-        return "회원가입에 성공했습니다. 메일을 확인해주세요.";
-      } else {
-        return "fail";
+      final String token = await _googleSignHelper.authenticate();
+      _googleIdToken.value = token;
+      final result = await repository.loginWithGoogle();
+      await _setAccessToken(result["accessToken"]);
+      await _setRefreshToken(result["refreshToken"]);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> refreshAcessToken() async {
+    // refreshTokenApi의 동시 다발적인 호출을 방지하기 위해 completer를 사용함. 동시 다발적으로 이 함수를 호출해도 api는 1번만 호출 됨.
+    if (_refreshTokenApiCompleter == null ||
+        _refreshTokenApiCompleter!.isCompleted) {
+      //첫 호출(null)이거나 이미 완료된 호출(completed completer)일 경우 새 객체 할당
+      _refreshTokenApiCompleter = Completer();
+      try {
+        if (_refreshToken.value == null) {
+          throw RefreshTokenException();
+        }
+        Map newAccessToken =
+            await repository.refreshAccessToken(_refreshToken.value!);
+        await _setAccessToken(newAccessToken["accessToken"]);
+        _refreshTokenApiCompleter!.complete();
+      } catch (_) {
+        await logout();
+        Get.offAllNamed(Routes.login);
+        throw RefreshTokenException();
       }
-    } on DioError catch (e) {
-      rethrow;
     }
-  }
 
-  Future<void> login(String email, String password) async {
-    try {
-      Map loginResult = await repository.login(email, password);
-      print(loginResult);
-      _setAccessToken(loginResult["data"]["accessToken"]);
-      _setRefreshToken(loginResult["data"]["refreshToken"]);
-    } on DioError catch (e) {
-      print(e.response!.statusCode.toString());
-      rethrow;
-    }
+    return _refreshTokenApiCompleter?.future;
   }
-
-  Future<void> refreshAcessToken() async {}
 
   Future<void> logout() async {
     _accessToken.value = null;

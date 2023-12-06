@@ -60,6 +60,13 @@ dependencies:
   connectivity_plus: ^5.0.1
   dotted_border: ^2.1.0
   animated_segmented_tab_control: ^1.2.0
+  chat_gpt_sdk: ^2.0.0
+  favicon: ^1.1.0
+  palette_generator: ^0.3.3+3
+  random_name_generator: ^1.2.0
+  emoji_picker_flutter: ^1.6.3
+  share_plus: ^7.2.1
+  flutter_widget_from_html: ^0.9.1
 
 dev_dependencies:
   flutter_test:

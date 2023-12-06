@@ -11,6 +11,7 @@ class ScapeTextField extends StatelessWidget {
   final TextInputType? textInputType;
   final TextEditingController? controller;
   final void Function(String)? onChanged;
+  final Function(String)? onSubmitted;
   final TextInputAction? textInputAction;
   final void Function()? onEditingComplete;
   final bool? enableInteractiveSelection;
@@ -24,6 +25,7 @@ class ScapeTextField extends StatelessWidget {
     this.maxLength,
     this.textInputType,
     this.onChanged,
+    this.onSubmitted,
     this.textInputAction,
     this.onEditingComplete,
     this.enableInteractiveSelection,
@@ -35,6 +37,7 @@ class ScapeTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onSubmitted: onSubmitted,
       enableInteractiveSelection: enableInteractiveSelection,
       obscureText: isPassword,
       enableSuggestions: !isPassword,
@@ -75,7 +78,7 @@ class ScapeTextField extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: prefixIcon,
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(vertical: 10),
         floatingLabelStyle: const TextStyle(
             color: Color.fromRGBO(0, 0, 0, 0.4),
             fontWeight: FontWeight.w500,
@@ -198,6 +201,55 @@ class ScapeDropdownField extends StatelessWidget {
               color: Colors.blue,
             ),
           )),
+    );
+  }
+}
+
+class ScapeDropdownIcon extends StatelessWidget {
+  ScapeDropdownIcon({super.key, required this.icon});
+
+  final Widget icon;
+
+  final OverlayPortalController _overlayPortalController =
+      OverlayPortalController();
+  final _link = LayerLink();
+
+  @override
+  Widget build(BuildContext context) {
+    return CompositedTransformTarget(
+      link: _link,
+      child: OverlayPortal(
+          controller: _overlayPortalController,
+          overlayChildBuilder: (context) {
+            return GestureDetector(
+              onTap: () {
+                _overlayPortalController.hide();
+              },
+              child: CompositedTransformFollower(
+                link: _link,
+                targetAnchor: Alignment.bottomLeft,
+                offset: const Offset(-50, 0),
+                child: Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Container(
+                      width: 100,
+                      color: Colors.white,
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          const ListTile(title: Text("이름순")),
+                          const ListTile(title: Text("최신순")),
+                        ],
+                      ),
+                    )),
+              ),
+            );
+          },
+          child: GestureDetector(
+              onTap: () {
+                _overlayPortalController.show();
+              },
+              child: icon)),
     );
   }
 }

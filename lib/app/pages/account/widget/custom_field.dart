@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:scape/app/widgets/button.dart';
@@ -13,6 +14,7 @@ class CustomFieldModal extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: obscureText,
+      style: ScapeTextTheme.Text3,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           border: InputBorder.none,
@@ -27,6 +29,9 @@ class CustomFieldModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      alignment: Alignment.bottomCenter,
+      backgroundColor: ScapeColors.white,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
         child: Column(
@@ -47,16 +52,19 @@ class CustomFieldModal extends StatelessWidget {
                   style: ScapeTextTheme.Text3_BOLD,
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(Icons.close),
                 )
               ],
             ),
             const SizedBox(height: 16),
             textfieldWithIcon("Field Name", "name", TextEditingController()),
-            textfieldWithIcon("Field Name", "name", TextEditingController()),
-            textfieldWithIcon("Field Name", "name", TextEditingController()),
-            textfieldWithIcon("Field Name", "name", TextEditingController()),
+            textfieldWithIcon("Value", "value", TextEditingController()),
+            textfieldWithIcon("Hide Preview", "show", TextEditingController()),
+            textfieldWithIcon(
+                "Description (Option)", "description", TextEditingController()),
             const SizedBox(height: 16),
             const ScapeSmallTextButton(
                 text: "Save", color: ScapeColors.Primary40)

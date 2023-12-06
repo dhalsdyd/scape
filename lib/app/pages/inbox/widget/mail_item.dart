@@ -1,12 +1,15 @@
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
+import 'package:scape/app/data/models/email.dart';
 import 'package:scape/app/pages/inbox/widget/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MailItem extends StatelessWidget {
-  const MailItem({super.key});
+  const MailItem({super.key, required this.emailMessage});
+
+  final EmailMessage emailMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,7 @@ class MailItem extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            Get.to(() => const InboxDetailPage());
+            Get.to(() => InboxDetailPage(emailMessage: emailMessage));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -26,19 +29,16 @@ class MailItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
               child: Row(
                 children: [
-                  Shimmer.fromColors(
-                      baseColor: ScapeColors.Gray20,
-                      highlightColor: ScapeColors.Gray40,
-                      child: Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Center(
-                          child: Text("A", style: ScapeTextTheme.Text4_BOLD),
-                        ),
-                      )),
+                  Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text("A", style: ScapeTextTheme.Text4_BOLD),
+                    ),
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Column(
@@ -47,7 +47,7 @@ class MailItem extends StatelessWidget {
                         Shimmer.fromColors(
                             baseColor: ScapeColors.Gray20,
                             highlightColor: ScapeColors.Gray40,
-                            child: const Text("광고성 메일",
+                            child: Text(emailMessage.text,
                                 style: ScapeTextTheme.Text3_MEDIUM)),
                         const SizedBox(height: 4),
                         Shimmer.fromColors(

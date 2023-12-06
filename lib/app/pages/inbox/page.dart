@@ -39,15 +39,28 @@ class InboxPage extends GetView<InboxPageController> {
             Expanded(
               child:
                   TabBarView(controller: controller.tabController, children: [
-                ListView(
-                  shrinkWrap: true,
-                  children: const [
-                    MailItem(),
-                    MailItem(),
-                    MailItem(),
-                  ],
-                ),
-                Container(),
+                controller.emailController.obx(
+                    (_) => Obx(
+                          () => ListView.separated(
+                              itemBuilder: ((context, index) => MailItem(
+                                  emailMessage:
+                                      controller.emailMessage[index])),
+                              separatorBuilder: ((context, index) =>
+                                  const SizedBox(height: 8)),
+                              itemCount: controller.emailMessage.length),
+                        ),
+                    onLoading: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          color: ScapeColors.Primary20,
+                          backgroundColor: Colors.white,
+                        ),
+                        SizedBox(height: 8),
+                        Text("Loading...", style: ScapeTextTheme.Text3_BOLD),
+                      ],
+                    )),
+                const SizedBox(),
               ]),
             ),
           ]),

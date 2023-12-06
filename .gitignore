@@ -46,6 +46,14 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# IOS
+**/ios/Flutter/AppFrameworkInfo.plist
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/flutter_project.pbxproj
+**/ios/Flutter/Generated.xcconfig
+**/Podfile.lock
+
 # Linux
 **/linux/flutter/generated_plugin_registrant.h
 **/linux/flutter/generated_plugin_registrant.cc
@@ -62,3 +70,11 @@ app.*.map.json
 **/windows/flutter/generated_plugin_registrant.cc
 **/windows/flutter/generated_plugin_registrant.h
 **/windows/flutter/generated_plugins.cmake
+
+# Firebase 
+**/google-services.json
+**/GoogleService-Info.plist
+**/firebase_app_id_file.json
+
+# Others
+**/secret_key.dart

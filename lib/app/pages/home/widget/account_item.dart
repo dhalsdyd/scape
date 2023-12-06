@@ -1,19 +1,24 @@
+import 'package:favicon/favicon.dart';
+import 'package:flutter/services.dart';
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
+import 'package:scape/app/data/models/account.dart';
+import 'package:scape/app/pages/home/controller.dart';
 import 'package:scape/app/pages/home/widget/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AccountItem extends StatefulWidget {
   const AccountItem(
       {super.key,
-      this.image,
+      required this.account_,
       required this.name,
       required this.account,
       this.password});
 
-  final String? image;
+  final Account account_;
   final String name;
   final String account;
   final String? password;
@@ -24,30 +29,68 @@ class AccountItem extends StatefulWidget {
 
 class _AccountItemState extends State<AccountItem> {
   bool isOpen = false;
+  bool isCopy = false;
 
   Widget profileImage() {
-    if (widget.image != null) {
-      return Container(
-          width: 36,
-          height: 36,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Center(child: Image.network(widget.image!)));
-    } else {
-      return Container(
-        width: 36,
-        height: 36,
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(
-          child: Text(widget.name[0],
-              style: ScapeTextTheme.Text4_BOLD.copyWith(color: Colors.white)),
-        ),
-      );
-    }
+    return FutureBuilder<Favicon?>(
+        future: FaviconFinder.getBest("https://${widget.name}"),
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                    child: Image.network(
+                  snapshot.data!.url,
+                  width: 50,
+                  errorBuilder: (context, error, stackTrace) =>
+                      SvgPicture.network(
+                    snapshot.data!.url,
+                    width: 50,
+                  ),
+                )));
+          } else {
+            return Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: Text(widget.name[0],
+                    style: ScapeTextTheme.Text4_BOLD.copyWith(
+                        color: Colors.white, fontSize: 16)),
+              ),
+            );
+          }
+        }));
+
+    // if (widget.image != null) {
+    //   return Container(
+    //       width: 36,
+    //       height: 36,
+    //       decoration: BoxDecoration(
+    //         borderRadius: BorderRadius.circular(8),
+    //       ),
+    //       child: Center(child: Image.network(widget.image!)));
+    // } else {
+    //   return Container(
+    //     width: 36,
+    //     height: 36,
+    //     decoration: BoxDecoration(
+    //       color: Colors.grey,
+    //       borderRadius: BorderRadius.circular(8),
+    //     ),
+    //     child: Center(
+    //       child: Text(widget.name[0],
+    //           style: ScapeTextTheme.Text4_BOLD.copyWith(color: Colors.white)),
+    //     ),
+    //   );
+    // }
   }
 
   Widget iconWithText(String assetName, String label) {
@@ -79,13 +122,13 @@ class _AccountItemState extends State<AccountItem> {
       onTap: () {
         switch (name) {
           case "edit":
+            Get.find<HomePageController>().setting(widget.account_);
             Get.to(() => const AccountDetailPage());
             break;
-          case "delete":
+          case "star":
             break;
-          case "open":
-            break;
-          case "close":
+          case "share":
+            Share.share("https://scape.page.link/1234567890");
             break;
         }
       },
@@ -111,17 +154,25 @@ class _AccountItemState extends State<AccountItem> {
   }
 
   Widget _buildHeaderOptionIsNotOpen() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xffE6E6E6)),
-      ),
-      child: const Padding(
-        padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
-        child: Text(
-          "Copy",
-          style: ScapeTextTheme.Text1,
+    return GestureDetector(
+      onTap: () {
+        Clipboard.setData(ClipboardData(text: widget.account));
+        setState(() {
+          isCopy = true;
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: const Color(0xffE6E6E6)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
+          child: Text(
+            !isCopy ? "Copy" : "Copied",
+            style: ScapeTextTheme.Text1,
+          ),
         ),
       ),
     );
@@ -234,9 +285,12 @@ class _AccountItemState extends State<AccountItem> {
                   child: Row(
                     children: [
                       Expanded(
-                          child: isOpen
-                              ? _buildHeaderIsOpen()
-                              : _buildHeaderIsNotOpen()),
+                          child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: isOpen
+                            ? _buildHeaderIsOpen()
+                            : _buildHeaderIsNotOpen(),
+                      )),
                       AnimatedSwitcher(
                           duration: const Duration(milliseconds: 300),
                           child: isOpen

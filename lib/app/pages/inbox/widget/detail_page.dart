@@ -1,23 +1,26 @@
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scape/app/data/models/email.dart';
 import 'package:shimmer/shimmer.dart';
 
 class InboxDetailPage extends StatelessWidget {
-  const InboxDetailPage({super.key});
+  const InboxDetailPage({super.key, required this.emailMessage});
+
+  final EmailMessage emailMessage;
 
   Widget _shimmerText(String text, {TextStyle style = ScapeTextTheme.Text1}) {
-    return Shimmer.fromColors(
-        baseColor: ScapeColors.Gray20,
-        highlightColor: ScapeColors.Gray40,
-        child: Text(text, style: style));
+    return Text(text, style: style);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: ScapeColors.Gray60,
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child:
@@ -60,13 +63,16 @@ class InboxDetailPage extends StatelessWidget {
                             Expanded(
                               child: Container(),
                             ),
-                            _shimmerText("2021.08.01 12:00",
+                            _shimmerText(
+                                emailMessage.createdAt.toString().split(".")[0],
                                 style: ScapeTextTheme.Text2),
                           ],
                         ),
                         const SizedBox(height: 8),
-                        _shimmerText("FROM", style: ScapeTextTheme.Text2),
-                        _shimmerText("To", style: ScapeTextTheme.Text2),
+                        _shimmerText("FROM : ${emailMessage.from}",
+                            style: ScapeTextTheme.Text2),
+                        _shimmerText("To : ${emailMessage.to}",
+                            style: ScapeTextTheme.Text2),
                       ]),
                 )
               ],
@@ -74,8 +80,7 @@ class InboxDetailPage extends StatelessWidget {
             const SizedBox(height: 16),
             const Divider(),
             const SizedBox(height: 16),
-            _shimmerText("광고성 메일을 차단하여 더욱 깨끗한 메일함을 유지하세요.",
-                style: ScapeTextTheme.Text1),
+            Expanded(child: HtmlWidget(emailMessage.html))
           ]),
         ));
   }

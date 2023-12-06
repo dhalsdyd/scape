@@ -3,10 +3,12 @@ import 'package:get_storage/get_storage.dart';
 
 // Alternatives include have, shared_preferences, flutter_secure_storage, sqflite, moor and so on.
 
-const String nameKey = "STRING";
+const String STARLIST = 'starList';
 
 class LocalDatabase extends GetxService {
   GetStorage? box;
+
+  List<String> get starList => box!.read<List<String>>(STARLIST) ?? [];
 
   @override
   void onInit() {
@@ -14,29 +16,14 @@ class LocalDatabase extends GetxService {
     super.onInit();
   }
 
-  // Wait CallBack
-  Future<void> waitWrite(String key, String value) async {
-    await box!.write(key, value);
-  }
-
-  Future<void> waitRead(String key) async {
-    await box!.read(key);
-  }
-
-  Future<void> waitRemove(String key) async {
-    await box!.remove(key);
-  }
-
-  //Right Now!!!
-  void write(String key, String value) {
-    box!.write(key, value);
-  }
-
-  void read(String key) {
-    box!.read(key);
-  }
-
-  void remove(String key) {
-    box!.remove(key);
+  void toggleStar(String id) {
+    List<String> list = starList;
+    if (list.contains(id)) {
+      list.remove(id);
+    } else {
+      list.add(id);
+    }
+    list.add(id);
+    box!.write(STARLIST, list);
   }
 }

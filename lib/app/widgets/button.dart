@@ -19,7 +19,7 @@ class ScapeIconButton extends StatelessWidget {
           width: 16,
           height: 16,
           decoration: BoxDecoration(
-            color: ScapeColors.mainColor,
+            color: ScapeColors.Primary30,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(
@@ -85,7 +85,7 @@ class ScapeKeyboardReactiveButton extends StatelessWidget {
     this.innerPadding = const EdgeInsets.all(16),
     this.onTap,
     this.padding = const EdgeInsets.all(0),
-    this.color = ScapeColors.mainColor,
+    this.color = ScapeColors.Primary30,
     this.disabled = false,
   }) : super(key: key);
 
@@ -123,10 +123,10 @@ class ScapeKeyboardReactiveButton extends StatelessWidget {
                           offset: const Offset(0, 4),
                           blurRadius: 12)
                     ],
-                    borderRadius: BorderRadius.circular(12 * (1 - value)),
+                    borderRadius: BorderRadius.circular(16 * (1 - value)),
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12 * (1 - value)),
+                    borderRadius: BorderRadius.circular(16 * (1 - value)),
                     child: Material(
                       color: color,
                       child: InkWell(
@@ -164,7 +164,7 @@ class ScapeBaseButton extends StatelessWidget {
       required this.padding,
       this.onTap,
       this.width,
-      this.color = ScapeColors.mainColor,
+      this.color = ScapeColors.Primary30,
       this.disabled = false})
       : super(key: key);
 
@@ -214,7 +214,7 @@ class ScapeLargeButton extends StatelessWidget {
     required this.child,
     this.onTap,
     this.width,
-    this.color = ScapeColors.mainColor,
+    this.color = ScapeColors.Primary30,
     this.disabled = false,
   }) : super(key: key);
 
@@ -243,7 +243,7 @@ class ScapeLargeTextButton extends StatelessWidget {
     required this.text,
     this.onTap,
     this.width,
-    this.color = ScapeColors.mainColor,
+    this.color = ScapeColors.Primary30,
     this.textColor = Colors.white,
     this.disabled = false,
   }) : super(key: key);
@@ -273,7 +273,7 @@ class ScapeMediumButton extends StatelessWidget {
     required this.child,
     this.onTap,
     this.width,
-    this.color = ScapeColors.mainColor,
+    this.color = ScapeColors.Primary30,
     this.disabled = false,
   }) : super(key: key);
 
@@ -302,7 +302,7 @@ class ScapeMediumTextButton extends StatelessWidget {
     required this.text,
     this.onTap,
     this.width,
-    this.color = ScapeColors.mainColor,
+    this.color = ScapeColors.Primary30,
     this.textColor = Colors.white,
     this.disabled = false,
   }) : super(key: key);
@@ -332,7 +332,7 @@ class ScapeSmallButton extends StatelessWidget {
     required this.child,
     this.onTap,
     this.width,
-    this.color = ScapeColors.mainColor,
+    this.color = ScapeColors.Primary30,
     this.disabled = false,
   }) : super(key: key);
 
@@ -361,7 +361,7 @@ class ScapeSmallTextButton extends StatelessWidget {
     required this.text,
     this.onTap,
     this.width,
-    this.color = ScapeColors.mainColor,
+    this.color = ScapeColors.Primary30,
     this.textColor = Colors.white,
     this.disabled = false,
   }) : super(key: key);

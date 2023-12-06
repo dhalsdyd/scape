@@ -1,5 +1,8 @@
-import 'package:scape/app/pages/home/binding.dart';
-import 'package:scape/app/pages/home/page.dart';
+import 'package:scape/app/core/middleware/login.dart';
+import 'package:scape/app/pages/account/binding.dart';
+import 'package:scape/app/pages/account/page.dart';
+import 'package:scape/app/pages/login/binding.dart';
+import 'package:scape/app/pages/login/page.dart';
 import 'package:scape/app/pages/root/binding.dart';
 import 'package:scape/app/pages/root/page.dart';
 import 'package:scape/app/routes/route.dart';
@@ -8,12 +11,18 @@ import 'package:get/get.dart';
 class AppPages {
   static final pages = [
     GetPage(
-        name: Routes.home,
-        page: () => const HomePage(),
-        binding: HomePageBinding()),
+        name: Routes.login,
+        page: () => const LoginPage(),
+        binding: LoginPageBinding()),
     GetPage(
         name: Routes.root,
         page: () => const RootPage(),
-        binding: RootPageBinding()),
+        binding: RootPageBinding(),
+        middlewares: [LoginMiddleware()]),
+    GetPage(
+        name: Routes.account_setting,
+        page: () => const AccountSettingPage(),
+        binding: AccountSettingPageBindng(),
+        middlewares: [LoginMiddleware()]),
   ];
 }

@@ -1,9 +1,15 @@
+import 'dart:developer';
+
+import 'package:flutter/services.dart';
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
+import 'package:scape/app/data/module/account/module.dart';
 import 'package:scape/app/pages/home/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:scape/app/routes/route.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AccountDetailPage extends GetView<HomePageController> {
   const AccountDetailPage({super.key});
@@ -19,29 +25,38 @@ class AccountDetailPage extends GetView<HomePageController> {
       child: Row(
         children: [
           Expanded(
-            child: Row(children: [
-              SvgPicture.asset("assets/icons/$assetName.svg"),
-              const SizedBox(width: 8),
-              Text.rich(TextSpan(children: [
-                TextSpan(
-                    text: "$title: ",
-                    style: ScapeTextTheme.Text3_MEDIUM.copyWith(
-                        fontWeight: FontWeight.bold)),
-                TextSpan(text: content, style: ScapeTextTheme.Text3_MEDIUM)
-              ]))
-            ]),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: const Color(0xffE6E6E6)),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(children: [
+                SvgPicture.asset("assets/icons/$assetName.svg"),
+                const SizedBox(width: 8),
+                Text.rich(TextSpan(children: [
+                  TextSpan(
+                      text: "$title: ",
+                      style: ScapeTextTheme.Text3_MEDIUM.copyWith(
+                          fontWeight: FontWeight.bold)),
+                  TextSpan(text: content, style: ScapeTextTheme.Text3_MEDIUM)
+                ]))
+              ]),
             ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
-              child: Text(
-                "Copy",
-                style: ScapeTextTheme.Text1,
+          ),
+          GestureDetector(
+            onTap: () {
+              log("copy : $content");
+              Clipboard.setData(ClipboardData(text: content));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: const Color(0xffE6E6E6)),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
+                child: Text(
+                  "Copy",
+                  style: ScapeTextTheme.Text1,
+                ),
               ),
             ),
           )
@@ -82,6 +97,7 @@ class AccountDetailPage extends GetView<HomePageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ScapeColors.Gray60,
         actions: [
           IconButton(
             icon: SvgPicture.asset(
@@ -89,7 +105,9 @@ class AccountDetailPage extends GetView<HomePageController> {
               width: 20,
               height: 20,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Share.share("https://scape.page.link/1234567890");
+            },
           )
         ],
         title: const Text(
@@ -106,14 +124,28 @@ class AccountDetailPage extends GetView<HomePageController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Credentials', style: ScapeTextTheme.Text4_BOLD),
-              SvgPicture.asset("assets/icons/edit.svg")
+              GestureDetector(
+                  onTap: () {
+                    Map data = {
+                      "serviceName": controller.selectAccount.value!.name,
+                      "Email": controller.selectAccount.value!.fields[0].value,
+                      "Password":
+                          controller.selectAccount.value!.fields[1].value,
+                      "Basic Identify":
+                          controller.selectAccount.value!.fields[2].value,
+                    };
+
+                    Get.toNamed(Routes.account_setting, arguments: data);
+                  },
+                  child: SvgPicture.asset("assets/icons/edit.svg"))
             ],
           ),
           const SizedBox(height: 12),
-          credentialCard("mail_filled", "Email", controller.mail.value),
+          credentialCard("mail_filled", "Email",
+              controller.selectAccount.value!.fields[0].value),
           const SizedBox(height: 12),
-          credentialCard(
-              "small_key_filled", "Password", controller.password.value),
+          credentialCard("small_key_filled", "Password",
+              controller.selectAccount.value!.fields[1].value),
           const SizedBox(height: 32),
           const Text('Logs', style: ScapeTextTheme.Text4_BOLD),
           const SizedBox(height: 8),

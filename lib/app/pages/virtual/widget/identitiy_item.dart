@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:scape/app/widgets/textfield.dart';
@@ -5,16 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class IdentitiyItem extends StatelessWidget {
-  const IdentitiyItem(
-      {super.key,
-      required this.title,
-      required this.subtitle,
-      required this.color});
+  const IdentitiyItem({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.color,
+    this.onTap,
+  });
 
   final String title;
   final String subtitle;
 
   final int color;
+
+  final Function()? onTap;
 
   // make color bolder
   int makeBolder(int color) {
@@ -31,45 +36,48 @@ class IdentitiyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: ScapeColors.Gray60),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-            child: Row(
-              children: [
-                Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: Color(color),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Center(
-                        child: SvgPicture.asset("assets/icons/key_filled.svg",
-                            color: Color(makeBolder(color))))),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: ScapeTextTheme.Text3_MEDIUM),
-                    const SizedBox(height: 4),
-                    Text(subtitle,
-                        style:
-                            ScapeTextTheme.Text1.copyWith(color: Colors.grey)),
-                  ],
-                ),
-              ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: ScapeColors.Gray60),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+              child: Row(
+                children: [
+                  Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: Color(color),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                          child: SvgPicture.asset("assets/icons/key_filled.svg",
+                              color: Color(makeBolder(color))))),
+                  const SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title, style: ScapeTextTheme.Text3_MEDIUM),
+                      const SizedBox(height: 4),
+                      Text(subtitle,
+                          style: ScapeTextTheme.Text1.copyWith(
+                              color: Colors.grey)),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 8),
-      ],
+          const SizedBox(height: 8),
+        ],
+      ),
     );
   }
 }
@@ -79,11 +87,16 @@ class IdentityDetailItem extends StatefulWidget {
       {super.key,
       required this.title,
       required this.subtitle,
-      required this.color});
+      required this.content,
+      required this.color,
+      this.onTap});
 
   final String title;
   final String subtitle;
+  final String content;
   final int color;
+
+  final Function()? onTap;
 
   @override
   State<IdentityDetailItem> createState() => _IdentityDetailItemState();
@@ -91,6 +104,7 @@ class IdentityDetailItem extends StatefulWidget {
 
 class _IdentityDetailItemState extends State<IdentityDetailItem> {
   bool isOpen = false;
+  bool isCopy = false;
 
   // make color bolder
   int makeBolder(int color) {
@@ -150,7 +164,9 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
                         ],
                       ),
                     ),
-                    SvgPicture.asset("assets/icons/trash.svg")
+                    GestureDetector(
+                        onTap: widget.onTap,
+                        child: SvgPicture.asset("assets/icons/trash.svg"))
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -250,67 +266,80 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
   }
 
   Widget _buildDetailCard() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Row(
-                children: [
-                  AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      child: isOpen
-                          ? _buildHeaderOptionIsOpen()
-                          : _buildHeaderOptionIsNotOpen()),
-                  const SizedBox(width: 10),
-                  const Text("sdnjsndjsnjdnj", style: ScapeTextTheme.Text3_BOLD)
-                ],
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xffE6E6E6)),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
-                child: Text(
-                  "Copy",
-                  style: ScapeTextTheme.Text1,
+    if (false) {
+      return Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        child: isOpen
+                            ? _buildHeaderOptionIsOpen()
+                            : _buildHeaderOptionIsNotOpen()),
+                    const SizedBox(width: 10),
+                    Text(widget.content, style: ScapeTextTheme.Text3_BOLD)
+                  ],
                 ),
               ),
-            )
-          ],
-        ),
-        AnimatedSize(
-            duration: const Duration(milliseconds: 300),
-            child: isOpen ? _buildContentIsOpen() : Container())
-      ],
-    );
-
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: const Color(0xffE6E6E6)),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
+                  child: Text(
+                    "Copy",
+                    style: ScapeTextTheme.Text1,
+                  ),
+                ),
+              )
+            ],
+          ),
+          AnimatedSize(
+              duration: const Duration(milliseconds: 300),
+              child: isOpen ? _buildContentIsOpen() : Container())
+        ],
+      );
+    }
     return Row(
       children: [
         Expanded(
-          child: Row(
-            children: [
-              Container(width: 32, height: 32, color: Colors.transparent),
-              const SizedBox(width: 10),
-              const Text("sdnjsndjsnjdnj", style: ScapeTextTheme.Text3_BOLD)
-            ],
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Container(width: 32, height: 32, color: Colors.transparent),
+                const SizedBox(width: 10),
+                Text(widget.content, style: ScapeTextTheme.Text3_BOLD)
+              ],
+            ),
           ),
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: const Color(0xffE6E6E6)),
-          ),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
-            child: Text(
-              "Copy",
-              style: ScapeTextTheme.Text1,
+        GestureDetector(
+          onTap: () {
+            Clipboard.setData(ClipboardData(text: widget.content));
+            // POPUP
+            setState(() {
+              isCopy = true;
+            });
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: const Color(0xffE6E6E6)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 8),
+              child: Text(
+                isCopy ? "Copied" : "Copy",
+                style: ScapeTextTheme.Text1,
+              ),
             ),
           ),
         )
