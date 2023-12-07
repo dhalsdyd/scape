@@ -16,4 +16,8 @@ class InboxPageController extends GetxController
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
   }
+
+  Future<void> refreshEmail() async {
+    await emailController.getEmailMessages();
+  }
 }

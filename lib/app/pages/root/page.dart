@@ -35,23 +35,31 @@ class RootPage extends GetView<RootPageController> {
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
-        child: Obx(
-          () => BottomNavigationBar(
-            items: [
-              _bottomNavigationBarItem('assets/icons/home.svg', 'Home'),
-              _bottomNavigationBarItem('assets/icons/virtual.svg', 'Virtual'),
-              _bottomNavigationBarItem('assets/icons/mail.svg', 'Inbox'),
-              _bottomNavigationBarItem('assets/icons/privacy.svg', 'Privacy'),
-            ],
-            selectedItemColor: ScapeColors.Primary10,
-            unselectedItemColor: ScapeColors.Gray10,
-            showUnselectedLabels: true,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            selectedLabelStyle: ScapeTextTheme.regular12,
-            currentIndex: controller.pageIndex,
-            onTap: controller.changePage,
+        child: Container(
+          color: Colors.white,
+          child: Obx(
+            () => Container(
+              margin: const EdgeInsets.symmetric(horizontal: 24),
+              child: BottomNavigationBar(
+                items: [
+                  _bottomNavigationBarItem('assets/icons/home.svg', 'Home'),
+                  _bottomNavigationBarItem(
+                      'assets/icons/virtual.svg', 'Virtual'),
+                  _bottomNavigationBarItem('assets/icons/mail.svg', 'Inbox'),
+                  _bottomNavigationBarItem(
+                      'assets/icons/privacy.svg', 'Privacy'),
+                ],
+                selectedItemColor: ScapeColors.Primary10,
+                unselectedItemColor: ScapeColors.Gray10,
+                showUnselectedLabels: true,
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.white,
+                elevation: 0,
+                selectedLabelStyle: ScapeTextTheme.regular12,
+                currentIndex: controller.pageIndex,
+                onTap: controller.changePage,
+              ),
+            ),
           ),
         ),
       ),

@@ -22,8 +22,12 @@ class VirtualPage extends GetView<VirtualPageController> {
           radius: const Radius.circular(8),
           color: ScapeColors.Primary40,
           child: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 12),
-            child: Center(child: Text("🦕 Select Identity from below")),
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Center(
+                child: Text(
+              "🦕 Select Identity from below",
+              style: ScapeTextTheme.Text2,
+            )),
           ),
         );
       }
@@ -36,7 +40,7 @@ class VirtualPage extends GetView<VirtualPageController> {
                 return IdentityDetailItem(
                   title: item.title,
                   subtitle: item.subtitle,
-                  color: item.color,
+                  colors: colorMap[item.color]!,
                   content: item.content,
                   onTap: () {
                     controller.onDone(item);
@@ -44,8 +48,11 @@ class VirtualPage extends GetView<VirtualPageController> {
                 );
               }),
               itemCount: controller.selected_list.value.length),
-          const SizedBox(height: 8),
-          ScapeSmallTextButton(text: "Save", onTap: controller.saveIdentity),
+          const SizedBox(height: 4),
+          ScapeSmallTextButton(
+            text: "Save Identity",
+            onTap: controller.saveIdentity,
+          ),
         ],
       );
     });
@@ -94,7 +101,7 @@ class VirtualPage extends GetView<VirtualPageController> {
                         return IdentitiyItem(
                           title: item.title,
                           subtitle: item.subtitle,
-                          color: item.color,
+                          colors: colorMap[item.color]!,
                           onTap: () {
                             controller.onSelected(item);
                           },
@@ -106,6 +113,7 @@ class VirtualPage extends GetView<VirtualPageController> {
                   ScapeTextField(
                     hintText: "Search Information Types",
                     prefixIcon: SvgPicture.asset("assets/icons/search.svg"),
+                    isShadow: true,
                   ),
                   const SizedBox(height: 8),
                 ]),

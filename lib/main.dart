@@ -26,6 +26,7 @@ void main() async {
       getPages: AppPages.pages,
       theme: ThemeData(
           fontFamily: "Pretendard",
+          dialogBackgroundColor: Colors.white,
           scaffoldBackgroundColor: ScapeColors.Gray60,
           textSelectionTheme: const TextSelectionThemeData(
               selectionColor: ScapeColors.Primary40)),

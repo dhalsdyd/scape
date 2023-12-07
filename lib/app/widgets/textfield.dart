@@ -17,6 +17,8 @@ class ScapeTextField extends StatelessWidget {
   final bool? enableInteractiveSelection;
   final Widget? prefixIcon;
 
+  final bool isShadow;
+
   const ScapeTextField({
     Key? key,
     this.label,
@@ -32,57 +34,71 @@ class ScapeTextField extends StatelessWidget {
     this.autofocus = false,
     this.isPassword = false,
     this.prefixIcon,
+    this.isShadow = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      onSubmitted: onSubmitted,
-      enableInteractiveSelection: enableInteractiveSelection,
-      obscureText: isPassword,
-      enableSuggestions: !isPassword,
-      autocorrect: !isPassword,
-      autofocus: autofocus,
-      style: ScapeTextTheme.Text2,
-      cursorColor: Colors.black,
-      keyboardType: textInputType,
-      maxLength: maxLength,
-      controller: controller,
-      onChanged: onChanged,
-      onEditingComplete: onEditingComplete,
-      textInputAction: textInputAction,
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: label,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-              width: 1, style: BorderStyle.solid, color: ScapeColors.Gray60),
+    return Container(
+      decoration: BoxDecoration(boxShadow: [
+        if (isShadow)
+          BoxShadow(
+              color: const Color(0xffC6C6C6).withOpacity(0.4),
+              blurRadius: 16,
+              offset: const Offset(0, 4))
+      ]),
+      child: TextField(
+        onSubmitted: onSubmitted,
+        enableInteractiveSelection: enableInteractiveSelection,
+        obscureText: isPassword,
+        enableSuggestions: !isPassword,
+        autocorrect: !isPassword,
+        autofocus: autofocus,
+        style: ScapeTextTheme.Text2,
+        cursorColor: Colors.black,
+        keyboardType: textInputType,
+        maxLength: maxLength,
+        controller: controller,
+        onChanged: onChanged,
+        onEditingComplete: onEditingComplete,
+        textInputAction: textInputAction,
+        decoration: InputDecoration(
+          hintText: hintText,
+          labelText: label,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+                width: 1, style: BorderStyle.solid, color: ScapeColors.Gray40),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+                width: 1, style: BorderStyle.solid, color: ScapeColors.Gray40),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+                width: 1,
+                style: BorderStyle.solid,
+                color: ScapeColors.Primary40),
+          ),
+          counterText: "",
+          fillColor: ScapeColors.white,
+          filled: true,
+          hintStyle:
+              ScapeTextTheme.Text2.copyWith(color: const Color(0xff777777)),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: prefixIcon,
+          ),
+          prefixIconConstraints:
+              const BoxConstraints(maxHeight: 48, maxWidth: 48),
+          contentPadding: const EdgeInsets.symmetric(vertical: 10),
+          floatingLabelStyle: const TextStyle(
+              color: Color.fromRGBO(0, 0, 0, 0.4),
+              fontWeight: FontWeight.w500,
+              fontSize: 12),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-              width: 1, style: BorderStyle.solid, color: ScapeColors.Gray60),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-              width: 1, style: BorderStyle.solid, color: ScapeColors.Primary40),
-        ),
-        counterText: "",
-        fillColor: ScapeColors.white,
-        filled: true,
-        hintStyle:
-            ScapeTextTheme.Text2.copyWith(color: const Color(0xff777777)),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.all(10),
-          child: prefixIcon,
-        ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
-        floatingLabelStyle: const TextStyle(
-            color: Color.fromRGBO(0, 0, 0, 0.4),
-            fontWeight: FontWeight.w500,
-            fontSize: 12),
       ),
     );
   }

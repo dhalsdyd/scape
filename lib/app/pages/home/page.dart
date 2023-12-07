@@ -39,37 +39,40 @@ class HomePage extends GetView<HomePageController> {
             ],
           ),
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ActionTabItem(
-                assetName: "add_mail",
-                label: "Create Mail",
-                onTap: () {
-                  Get.find<RootPageController>().changePage(1);
-                  Get.find<VirtualPageController>().makeEmail();
-                },
-              ),
-              ActionTabItem(
-                  assetName: "virtual",
-                  label: "Create VA",
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ActionTabItem(
+                  assetName: "add_mail",
+                  label: "Create Mail",
                   onTap: () {
                     Get.find<RootPageController>().changePage(1);
-                  }),
-              ActionTabItem(
-                assetName: "add_document",
-                label: "Add Account",
-                onTap: () {
-                  Get.toNamed(Routes.account_setting);
-                },
-              ),
-              ActionTabItem(
-                  assetName: "inbox",
-                  label: "Inbox",
+                    Get.find<VirtualPageController>().makeEmail();
+                  },
+                ),
+                ActionTabItem(
+                    assetName: "virtual",
+                    label: "Create VA",
+                    onTap: () {
+                      Get.find<RootPageController>().changePage(1);
+                    }),
+                ActionTabItem(
+                  assetName: "add_document",
+                  label: "Add Account",
                   onTap: () {
-                    Get.find<RootPageController>().changePage(2);
-                  }),
-            ],
+                    Get.toNamed(Routes.account_setting);
+                  },
+                ),
+                ActionTabItem(
+                    assetName: "inbox",
+                    label: "Inbox",
+                    onTap: () {
+                      Get.find<RootPageController>().changePage(2);
+                    }),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
           Row(
@@ -97,27 +100,33 @@ class HomePage extends GetView<HomePageController> {
                 ),
               );
             }
-            return ListView.separated(
-                itemBuilder: (context, index) {
-                  Account account = controller.accounts[index];
-                  return AccountItem(
-                    account_: account,
-                    name: account.name,
-                    account: account.fields[0].value,
-                    password: account.fields[1].value,
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(height: 8);
-                },
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                itemCount: controller.accounts.length);
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    Account account = controller.accounts[index];
+                    return AccountItem(
+                      account_: account,
+                      name: account.name,
+                      account: account.fields[0].value,
+                      password: account.fields[1].value,
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 8);
+                  },
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: controller.accounts.length),
+            );
           })),
           const SizedBox(height: 8),
           ScapeTextField(
             hintText: "Search Account",
-            prefixIcon: SvgPicture.asset("assets/icons/search.svg"),
+            prefixIcon: SvgPicture.asset(
+              "assets/icons/search.svg",
+            ),
+            isShadow: true,
           ),
           const SizedBox(height: 8),
         ]),

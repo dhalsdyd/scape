@@ -41,13 +41,16 @@ class InboxPage extends GetView<InboxPageController> {
                   TabBarView(controller: controller.tabController, children: [
                 controller.emailController.obx(
                     (_) => Obx(
-                          () => ListView.separated(
-                              itemBuilder: ((context, index) => MailItem(
-                                  emailMessage:
-                                      controller.emailMessage[index])),
-                              separatorBuilder: ((context, index) =>
-                                  const SizedBox(height: 8)),
-                              itemCount: controller.emailMessage.length),
+                          () => RefreshIndicator(
+                            onRefresh: controller.refreshEmail,
+                            child: ListView.separated(
+                                itemBuilder: ((context, index) => MailItem(
+                                    emailMessage:
+                                        controller.emailMessage[index])),
+                                separatorBuilder: ((context, index) =>
+                                    const SizedBox(height: 8)),
+                                itemCount: controller.emailMessage.length),
+                          ),
                         ),
                     onLoading: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,

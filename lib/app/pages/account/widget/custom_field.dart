@@ -31,7 +31,8 @@ class CustomFieldModal extends StatelessWidget {
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
       alignment: Alignment.bottomCenter,
-      backgroundColor: ScapeColors.white,
+      backgroundColor: Colors.white.withOpacity(1),
+      surfaceTintColor: Colors.white.withOpacity(1),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
         child: Column(

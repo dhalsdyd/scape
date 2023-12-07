@@ -18,8 +18,9 @@ class InboxDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: ScapeColors.Gray60,
+          backgroundColor: Colors.white,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -28,7 +29,7 @@ class InboxDetailPage extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                    child: _shimmerText("광고성 메일",
+                    child: _shimmerText(emailMessage.subject,
                         style: ScapeTextTheme.Text4_BOLD)),
                 SvgPicture.asset("assets/icons/more_vertical.svg")
               ],

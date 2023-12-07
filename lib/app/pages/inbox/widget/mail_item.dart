@@ -44,17 +44,11 @@ class MailItem extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Shimmer.fromColors(
-                            baseColor: ScapeColors.Gray20,
-                            highlightColor: ScapeColors.Gray40,
-                            child: Text(emailMessage.text,
-                                style: ScapeTextTheme.Text3_MEDIUM)),
+                        Text(emailMessage.subject,
+                            style: ScapeTextTheme.Text3_MEDIUM),
                         const SizedBox(height: 4),
-                        Shimmer.fromColors(
-                            baseColor: ScapeColors.Gray20,
-                            highlightColor: ScapeColors.Gray40,
-                            child: const Text("광고성 메일을 차단하여 더욱 깨끗한 메일함을 유지하세요.",
-                                style: ScapeTextTheme.Text1)),
+                        Text("광고성 메일을 차단하여 더욱 깨끗한 메일함을 유지하세요.",
+                            style: ScapeTextTheme.Text1),
                       ],
                     ),
                   ),

@@ -42,6 +42,7 @@ class EmailMessage {
   String to;
   String text;
   String html;
+  String subject;
 
   EmailMessage(
       {required this.id,
@@ -50,7 +51,8 @@ class EmailMessage {
       required this.from,
       required this.to,
       required this.text,
-      required this.html});
+      required this.html,
+      required this.subject});
 
   factory EmailMessage.fromJson(Map<String, dynamic> json) =>
       _$EmailMessageFromJson(json);

@@ -14,13 +14,15 @@ class AccountSettingPage extends GetView<AccountSettingPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: ScapeColors.Gray60,
+          backgroundColor: ScapeColors.white,
         ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
                   child: Column(
@@ -48,8 +50,8 @@ class AccountSettingPage extends GetView<AccountSettingPageController> {
                           return const SizedBox();
                         }
                       }),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 60),
+                      SizedBox(
+                        width: 150,
                         child: UnderLineTextField(
                             emoji: "",
                             controller: controller.serviceNameController,
@@ -58,22 +60,27 @@ class AccountSettingPage extends GetView<AccountSettingPageController> {
                             editable: false),
                       ),
                       UnderLineTextField(
-                          emoji: "📧",
+                          emoji: "assets/icons/small_mail.svg",
                           controller: controller.emailController,
                           hintText: "Email/ID"),
                       //UnderLineTextField(controller.idController, "ID"),
                       UnderLineTextField(
-                          emoji: "🔒",
+                          emoji: "assets/icons/key.svg",
                           controller: controller.passwordController,
                           hintText: "Password",
                           isPassword: true),
                       UnderLineTextField(
-                          emoji: "👤",
+                          emoji: "assets/icons/small_mail.svg",
                           controller: controller.nameController,
                           hintText: "Name"),
                       GestureDetector(
                         onTap: () {
-                          Get.dialog(const CustomFieldModal());
+                          Get.dialog(
+                            const CustomFieldModal(),
+                            barrierDismissible: true,
+                            useSafeArea: true,
+                            transitionDuration: const Duration(milliseconds: 1),
+                          );
                         },
                         child: Container(
                           decoration: BoxDecoration(

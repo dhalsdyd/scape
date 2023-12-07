@@ -5,19 +5,25 @@ import 'package:scape/app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+const colorMap = {
+  'gray': [0xffD4DAE3, 0xff4D5259],
+  "orange": [0xffEAC5A4, 0xff74583F],
+  "green": [0xffD2E7D0, 0xff296A23]
+};
+
 class IdentitiyItem extends StatelessWidget {
   const IdentitiyItem({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.color,
+    required this.colors,
     this.onTap,
   });
 
   final String title;
   final String subtitle;
 
-  final int color;
+  final List<int> colors;
 
   final Function()? onTap;
 
@@ -34,6 +40,18 @@ class IdentitiyItem extends StatelessWidget {
     return (0xFF << 24) | (r << 16) | (g << 8) | b;
   }
 
+  int makeVeryBolder(int color) {
+    int r = color >> 16 & 0xFF;
+    int g = color >> 8 & 0xFF;
+    int b = color & 0xFF;
+
+    r = (r * 0.6).round();
+    g = (g * 0.6).round();
+    b = (b * 0.6).round();
+
+    return (0xFF << 24) | (r << 16) | (g << 8) | b;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -43,7 +61,7 @@ class IdentitiyItem extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(color: ScapeColors.Gray60),
             ),
             child: Padding(
@@ -54,21 +72,22 @@ class IdentitiyItem extends StatelessWidget {
                       width: 32,
                       height: 32,
                       decoration: BoxDecoration(
-                        color: Color(color),
+                        color: Color(colors[0]),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
                           child: SvgPicture.asset("assets/icons/key_filled.svg",
-                              color: Color(makeBolder(color))))),
+                              color: Color(makeBolder(colors[1]))))),
                   const SizedBox(width: 10),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(title, style: ScapeTextTheme.Text3_MEDIUM),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 0),
                       Text(subtitle,
                           style: ScapeTextTheme.Text1.copyWith(
-                              color: Colors.grey)),
+                              color: ScapeColors.Gray20)),
                     ],
                   ),
                 ],
@@ -88,13 +107,13 @@ class IdentityDetailItem extends StatefulWidget {
       required this.title,
       required this.subtitle,
       required this.content,
-      required this.color,
+      required this.colors,
       this.onTap});
 
   final String title;
   final String subtitle;
   final String content;
-  final int color;
+  final List<int> colors;
 
   final Function()? onTap;
 
@@ -115,6 +134,18 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
     r = (r * 0.8).round();
     g = (g * 0.8).round();
     b = (b * 0.8).round();
+
+    return (0xFF << 24) | (r << 16) | (g << 8) | b;
+  }
+
+  int makeVeryBolder(int color) {
+    int r = color >> 16 & 0xFF;
+    int g = color >> 8 & 0xFF;
+    int b = color & 0xFF;
+
+    r = (r * 0.6).round();
+    g = (g * 0.6).round();
+    b = (b * 0.6).round();
 
     return (0xFF << 24) | (r << 16) | (g << 8) | b;
   }
@@ -142,23 +173,23 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
                               width: 32,
                               height: 32,
                               decoration: BoxDecoration(
-                                color: Color(widget.color),
+                                color: Color(widget.colors[0]),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Center(
                                   child: SvgPicture.asset(
                                       "assets/icons/key_filled.svg",
-                                      color: Color(makeBolder(widget.color))))),
+                                      color: Color(
+                                          makeVeryBolder(widget.colors[1]))))),
                           const SizedBox(width: 10),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(widget.title,
                                   style: ScapeTextTheme.Text3_MEDIUM),
-                              const SizedBox(height: 4),
                               Text(widget.subtitle,
                                   style: ScapeTextTheme.Text1.copyWith(
-                                      color: Colors.grey)),
+                                      color: ScapeColors.Gray20)),
                             ],
                           ),
                         ],
@@ -170,7 +201,7 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                const Divider(),
+                const Divider(color: ScapeColors.Gray60, height: 1),
                 const SizedBox(height: 10),
                 _buildDetailCard()
               ],
@@ -309,16 +340,8 @@ class _IdentityDetailItemState extends State<IdentityDetailItem> {
     return Row(
       children: [
         Expanded(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                Container(width: 32, height: 32, color: Colors.transparent),
-                const SizedBox(width: 10),
-                Text(widget.content, style: ScapeTextTheme.Text3_BOLD)
-              ],
-            ),
-          ),
+          child: Center(
+              child: Text(widget.content, style: ScapeTextTheme.Text3_BOLD)),
         ),
         GestureDetector(
           onTap: () {

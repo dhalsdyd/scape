@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:get/get.dart';
@@ -9,7 +8,7 @@ import 'package:scape/app/routes/route.dart';
 class Virtual {
   String title;
   String subtitle;
-  int color;
+  String color;
 
   String content;
 
@@ -57,9 +56,9 @@ class Constant {
 class VirtualPageController extends GetxController {
   final EmailController emailController = Get.find<EmailController>();
   List<Virtual> virtual_list = [
-    Virtual("Email", "Generate receive-only email", 0xffD4DAE3),
-    Virtual("Password", "Generate random strong password", 0xffEAC5A4),
-    Virtual("Basic Identify", "Generate name, gender, and address", 0xffD2E7D0),
+    Virtual("Email", "Generate receive-only email", "gray"),
+    Virtual("Password", "Generate random strong password", "orange"),
+    Virtual("Basic Identify", "Generate name, gender, and address", "green"),
     //Virtual("Phone Number", "Coming soon", 0xffD3D3D3),
   ];
 

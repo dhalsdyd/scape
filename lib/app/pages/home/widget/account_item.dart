@@ -1,5 +1,6 @@
 import 'package:favicon/favicon.dart';
 import 'package:flutter/services.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:scape/app/data/models/account.dart';
@@ -31,25 +32,42 @@ class _AccountItemState extends State<AccountItem> {
   bool isOpen = false;
   bool isCopy = false;
 
+  Color makeBrighter(Color color) {
+    return Color.fromARGB(color.alpha, color.red, color.green, color.blue);
+  }
+
+  Future<Map> getFaviconAndColor() async {
+    final favicon = await FaviconFinder.getBest("https://${widget.name}");
+    final PaletteGenerator paletteGenerator =
+        await PaletteGenerator.fromImageProvider(NetworkImage(favicon!.url));
+
+    return {
+      "favicon": favicon.url,
+      "color": makeBrighter(paletteGenerator.dominantColor!.color)
+    };
+  }
+
   Widget profileImage() {
-    return FutureBuilder<Favicon?>(
-        future: FaviconFinder.getBest("https://${widget.name}"),
+    return FutureBuilder<Map>(
+        future: getFaviconAndColor(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             return Container(
                 width: 36,
                 height: 36,
                 decoration: BoxDecoration(
+                  border: Border.all(color: snapshot.data!["color"]),
+                  //color: ,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Center(
                     child: Image.network(
-                  snapshot.data!.url,
-                  width: 50,
+                  snapshot.data!["favicon"],
+                  width: 18,
                   errorBuilder: (context, error, stackTrace) =>
                       SvgPicture.network(
-                    snapshot.data!.url,
-                    width: 50,
+                    snapshot.data!["favicon"],
+                    width: 18,
                   ),
                 )));
           } else {
@@ -108,9 +126,9 @@ class _AccountItemState extends State<AccountItem> {
   Widget iconWithText2(String assetName, String label) {
     return Row(
       children: [
-        SvgPicture.asset("assets/icons/$assetName.svg"),
-        const SizedBox(width: 2),
-        Text(label, style: ScapeTextTheme.Text2),
+        SvgPicture.asset("assets/icons/$assetName.svg", width: 16),
+        const SizedBox(width: 4),
+        Text(label, style: ScapeTextTheme.Text2_MEDIUM),
       ],
     );
   }
@@ -179,6 +197,8 @@ class _AccountItemState extends State<AccountItem> {
   }
 
   Widget _buildHeaderIsNotOpen() {
+    String password = "*" * widget.password!.length;
+
     return Row(
       children: [
         Row(
@@ -193,8 +213,7 @@ class _AccountItemState extends State<AccountItem> {
                 const SizedBox(height: 4),
                 iconWithText("small_mail", widget.account),
                 const SizedBox(height: 2),
-                if (widget.password != null)
-                  iconWithText("key", widget.password!),
+                if (widget.password != null) iconWithText("key", password),
               ],
             )
           ],
@@ -227,7 +246,7 @@ class _AccountItemState extends State<AccountItem> {
                 Text(widget.name, style: ScapeTextTheme.Text3_MEDIUM),
                 const SizedBox(height: 4),
                 Text(
-                  "Last used at 2023.11.09",
+                  "Created At ${widget.account_.createdAt.toString().split(" ")[0]}",
                   style: ScapeTextTheme.Text1.copyWith(
                       color: const Color(0xff868686)),
                 )
@@ -247,7 +266,7 @@ class _AccountItemState extends State<AccountItem> {
         const SizedBox(height: 12),
         if (widget.password != null)
           iconWithText2("key", "Password : ${widget.password!}"),
-        const SizedBox(height: 16),
+        const SizedBox(height: 24),
         Row(
           children: [
             Expanded(child: optionTool("star")),
@@ -273,7 +292,7 @@ class _AccountItemState extends State<AccountItem> {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: ScapeColors.Gray60),
         ),
         child: Padding(

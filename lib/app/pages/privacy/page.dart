@@ -54,6 +54,7 @@ class PrivacyPage extends GetView<PrivacyPageController> {
                 hintText: "Ask Anything :)",
                 prefixIcon: const Icon(Icons.send),
                 onEditingComplete: controller.addChat,
+                isShadow: true,
               ),
             ]),
           ),

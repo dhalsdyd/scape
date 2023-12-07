@@ -339,7 +339,7 @@ class ScapeSmallButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScapeBaseButton(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       width: width,
       onTap: onTap,
       color: color,

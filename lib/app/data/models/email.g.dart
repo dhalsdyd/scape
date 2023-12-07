@@ -23,13 +23,15 @@ Map<String, dynamic> _$EmailToJson(Email instance) => <String, dynamic>{
     };
 
 EmailMessage _$EmailMessageFromJson(Map<String, dynamic> json) => EmailMessage(
-    id: json['id'] as String,
-    createdAt: DateTime.parse(json['createdAt'] as String),
-    receivedAt: DateTime.parse(json['receivedAt'] as String),
-    from: json['from'] as String,
-    to: json['to'] as String,
-    text: json['text'] as String,
-    html: json['html'] as String);
+      id: json['id'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      receivedAt: DateTime.parse(json['receivedAt'] as String),
+      from: json['from'] as String,
+      to: json['to'] as String,
+      text: json['text'] as String,
+      html: json['html'] as String,
+      subject: json['subject'] as String,
+    );
 
 Map<String, dynamic> _$EmailMessageToJson(EmailMessage instance) =>
     <String, dynamic>{
@@ -40,4 +42,5 @@ Map<String, dynamic> _$EmailMessageToJson(EmailMessage instance) =>
       'to': instance.to,
       'text': instance.text,
       'html': instance.html,
+      'subject': instance.subject,
     };

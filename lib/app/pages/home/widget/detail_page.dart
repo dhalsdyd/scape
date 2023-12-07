@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
-import 'package:scape/app/data/module/account/module.dart';
 import 'package:scape/app/pages/home/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,7 +19,6 @@ class AccountDetailPage extends GetView<HomePageController> {
       decoration: BoxDecoration(
         color: const Color(0xfff7f7f7),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: ScapeColors.Gray60),
       ),
       child: Row(
         children: [
@@ -32,14 +30,13 @@ class AccountDetailPage extends GetView<HomePageController> {
                 const SizedBox(width: 8),
                 Text.rich(TextSpan(children: [
                   TextSpan(
-                      text: "$title: ",
-                      style: ScapeTextTheme.Text3_MEDIUM.copyWith(
-                          fontWeight: FontWeight.bold)),
-                  TextSpan(text: content, style: ScapeTextTheme.Text3_MEDIUM)
+                      text: "$title: ", style: ScapeTextTheme.Text3_MEDIUM),
+                  TextSpan(text: content, style: ScapeTextTheme.Text3)
                 ]))
               ]),
             ),
           ),
+          const SizedBox(width: 8),
           GestureDetector(
             onTap: () {
               log("copy : $content");
@@ -96,8 +93,9 @@ class AccountDetailPage extends GetView<HomePageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: ScapeColors.Gray60,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: SvgPicture.asset(
@@ -110,8 +108,8 @@ class AccountDetailPage extends GetView<HomePageController> {
             },
           )
         ],
-        title: const Text(
-          'Account',
+        title: Text(
+          controller.selectAccount.value!.name,
           style: ScapeTextTheme.Text4_BOLD,
         ),
         centerTitle: true,
@@ -147,10 +145,10 @@ class AccountDetailPage extends GetView<HomePageController> {
           credentialCard("small_key_filled", "Password",
               controller.selectAccount.value!.fields[1].value),
           const SizedBox(height: 32),
-          const Text('Logs', style: ScapeTextTheme.Text4_BOLD),
-          const SizedBox(height: 8),
-          logCard(),
-          const SizedBox(height: 32),
+          // const Text('Logs', style: ScapeTextTheme.Text4_BOLD),
+          // const SizedBox(height: 8),
+          // logCard(),
+          //const SizedBox(height: 32),
           Text('Danger Zone',
               style: ScapeTextTheme.Text4_BOLD.copyWith(color: Colors.red)),
           const SizedBox(height: 12),
