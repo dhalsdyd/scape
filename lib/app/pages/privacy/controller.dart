@@ -19,7 +19,8 @@ class PrivacyPageController extends GetxController {
   }
 
   Rx<Map> mockPingPong = Rx<Map>({
-    "ㅋㅋㅋ": """
+    "구글 개인정보처리방침에 대해 알려줘":
+        """
 네, 물론입니다. 구글의 개인정보처리방침은 사용자의 정보 수집, 보호, 그리고 사용에 관한 중요한 정보를 다룹니다. 아래는 구글 개인정보처리방침의 주요 내용을 간략히 정리한 것입니다:
 
 수집하는 정보 유형:

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:random_name_generator/random_name_generator.dart';
 import 'package:scape/app/data/module/email/module.dart';
@@ -11,8 +12,10 @@ class Virtual {
   String color;
 
   String content;
+  bool isSearched = false;
 
-  Virtual(this.title, this.subtitle, this.color, {this.content = ""});
+  Virtual(this.title, this.subtitle, this.color,
+      {this.content = "", this.isSearched = false});
 }
 
 class Constant {
@@ -61,8 +64,49 @@ class VirtualPageController extends GetxController {
     Virtual("Basic Identify", "Generate name, gender, and address", "green"),
     //Virtual("Phone Number", "Coming soon", 0xffD3D3D3),
   ];
+  Rx<List<Virtual>> selected_list = Rx([]);
+  Rx<List<Virtual>> show_list = Rx([]);
+
+  final TextEditingController searchController = TextEditingController();
+  final Rx<String> search = "".obs;
 
   bool loading = false;
+
+  @override
+  void onInit() {
+    show_list.value = virtual_list;
+    searchController.addListener(() {
+      search.value = searchController.text;
+    });
+
+    debounce(search, (callback) {
+      // 검색 결과에 맞는 아이템을 찾고 그 아이템을 맨 위로 올린다. 나머지는 그대로 유지한다.
+      List<Virtual> temp = [];
+      for (var item in virtual_list) {
+        if (item.title.toLowerCase().contains(search.value.toLowerCase())) {
+          item.isSearched = true;
+
+          if (search.value == "") {
+            item.isSearched = false;
+          }
+
+          temp.add(item);
+        }
+      }
+
+      for (var item in virtual_list) {
+        if (!temp.contains(item)) {
+          item.isSearched = false;
+          temp.add(item);
+        }
+      }
+
+      show_list.value = temp;
+      show_list.refresh();
+    }, time: const Duration(milliseconds: 500));
+
+    super.onInit();
+  }
 
   void onSelected(Virtual item) async {
     if (selected_list.value.contains(item)) {
@@ -85,18 +129,21 @@ class VirtualPageController extends GetxController {
     }
 
     selected_list.value.add(item);
+    show_list.value.remove(item);
 
     selected_list.refresh();
+    show_list.refresh();
   }
 
   void makeEmail() {
     onSelected(virtual_list[0]);
   }
 
-  Rx<List<Virtual>> selected_list = Rx([]);
   void onDone(Virtual item) {
     selected_list.value.remove(item);
+    show_list.value.add(item);
     selected_list.refresh();
+    show_list.refresh();
   }
 
   String makeRandomStrongPassword() {
@@ -155,7 +202,7 @@ class VirtualPageController extends GetxController {
     }
 
     selected_list.value = [];
-
+    show_list.value = virtual_list;
     Get.toNamed(Routes.account_setting, arguments: data);
   }
 }

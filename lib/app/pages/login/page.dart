@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:scape/app/pages/login/controller.dart';
 
@@ -19,16 +20,23 @@ class LoginPage extends GetView<LoginPageController> {
           children: [
             Expanded(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset("assets/icons/security.svg"),
-                  const Text(
-                    'Scape',
-                    style: ScapeTextTheme.Text5_BOLD,
+                  SvgPicture.asset(
+                    "assets/icons/security.svg",
+                    height: 250,
                   ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    "Let's save the world",
-                    style: ScapeTextTheme.Text4,
+                  const SizedBox(height: 32),
+                  Text(
+                    'Scape',
+                    style: ScapeTextTheme.Text5_BOLD.copyWith(
+                        color: ScapeColors.Primary10),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Let's Secure Your Accounts",
+                    style: ScapeTextTheme.Text3_MEDIUM.copyWith(
+                        color: ScapeColors.Gray20),
                   ),
                 ],
               ),

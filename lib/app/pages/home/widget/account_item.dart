@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:favicon/favicon.dart';
 import 'package:flutter/services.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -17,12 +18,15 @@ class AccountItem extends StatefulWidget {
       required this.account_,
       required this.name,
       required this.account,
-      this.password});
+      this.password,
+      this.isSearched = false});
 
   final Account account_;
   final String name;
   final String account;
   final String? password;
+
+  final bool isSearched;
 
   @override
   State<AccountItem> createState() => _AccountItemState();
@@ -61,10 +65,10 @@ class _AccountItemState extends State<AccountItem> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Center(
-                    child: Image.network(
-                  snapshot.data!["favicon"],
+                    child: CachedNetworkImage(
+                  imageUrl: snapshot.data!["favicon"],
                   width: 18,
-                  errorBuilder: (context, error, stackTrace) =>
+                  errorWidget: (context, error, stackTrace) =>
                       SvgPicture.network(
                     snapshot.data!["favicon"],
                     width: 18,
@@ -293,7 +297,10 @@ class _AccountItemState extends State<AccountItem> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: ScapeColors.Gray60),
+          border: Border.all(
+              color: !widget.isSearched
+                  ? ScapeColors.Gray60
+                  : ScapeColors.Primary20),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),

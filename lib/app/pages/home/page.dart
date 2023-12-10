@@ -105,11 +105,14 @@ class HomePage extends GetView<HomePageController> {
               child: ListView.separated(
                   itemBuilder: (context, index) {
                     Account account = controller.accounts[index];
+                    bool isSearched = controller.isSearched(index);
+
                     return AccountItem(
                       account_: account,
                       name: account.name,
                       account: account.fields[0].value,
                       password: account.fields[1].value,
+                      isSearched: isSearched,
                     );
                   },
                   separatorBuilder: (context, index) {
@@ -127,6 +130,7 @@ class HomePage extends GetView<HomePageController> {
               "assets/icons/search.svg",
             ),
             isShadow: true,
+            controller: controller.searchController,
           ),
           const SizedBox(height: 8),
         ]),

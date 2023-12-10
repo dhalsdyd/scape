@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:scape/app/data/local/getx_storage.dart';
@@ -10,11 +12,26 @@ class HomePageController extends GetxController with StateMixin {
 
   final TextEditingController searchController = TextEditingController();
   Rx<String> search = Rx<String>("");
+  Rx<List<int>> searchResult = Rx<List<int>>([]);
+
+  bool isSearched(int index) {
+    for (var i = 0; i < searchResult.value.length; i++) {
+      if (searchResult.value[i] == index) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   final AccountController accountController = Get.find<AccountController>();
   final LocalDatabase localDatabase = Get.find<LocalDatabase>();
 
   List<Account> get accounts => accountController.accounts;
+  set accounts(List<Account> value) {
+    accountController.accountList.value = value;
+    accountController.accountList.refresh();
+  }
+
   List<String> get starList => localDatabase.starList;
 
   Rx<Account?> selectAccount = Rx(null);
@@ -49,6 +66,44 @@ class HomePageController extends GetxController with StateMixin {
   @override
   void onInit() {
     super.onInit();
-    ever(search, (_) => accountController.getAccount());
+    searchController.addListener(() {
+      search.value = searchController.text;
+    });
+    debounce(search, (callback) {
+      List<Account> temp2 = [];
+      for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i]
+            .name
+            .toLowerCase()
+            .contains(search.value.toLowerCase())) {
+          temp2.add(accounts[i]);
+        }
+      }
+
+      for (var i = 0; i < accounts.length; i++) {
+        if (!temp2.contains(accounts[i])) {
+          temp2.add(accounts[i]);
+        }
+      }
+      accounts = temp2;
+      // 순서도 위에 올려주고, 인덱스 위치도 저장해줘
+      List<int> temp = [];
+      for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i]
+            .name
+            .toLowerCase()
+            .contains(search.value.toLowerCase())) {
+          temp.add(i);
+        }
+      }
+
+      if (search.value == "") {
+        temp = [];
+      }
+
+      searchResult.value = temp;
+      log("searchResult : ${searchResult.value}");
+      searchResult.refresh();
+    }, time: const Duration(milliseconds: 500));
   }
 }

@@ -93,20 +93,23 @@ class VirtualPage extends GetView<VirtualPageController> {
                   ),
                   const SizedBox(height: 8),
                   Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controller.virtual_list.length,
-                      itemBuilder: ((context, index) {
-                        Virtual item = controller.virtual_list[index];
-                        return IdentitiyItem(
-                          title: item.title,
-                          subtitle: item.subtitle,
-                          colors: colorMap[item.color]!,
-                          onTap: () {
-                            controller.onSelected(item);
-                          },
-                        );
-                      }),
+                    child: Obx(
+                      () => ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.show_list.value.length,
+                        itemBuilder: ((context, index) {
+                          Virtual item = controller.show_list.value[index];
+                          return IdentitiyItem(
+                            title: item.title,
+                            subtitle: item.subtitle,
+                            colors: colorMap[item.color]!,
+                            onTap: () {
+                              controller.onSelected(item);
+                            },
+                            isSearched: item.isSearched,
+                          );
+                        }),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -114,6 +117,7 @@ class VirtualPage extends GetView<VirtualPageController> {
                     hintText: "Search Information Types",
                     prefixIcon: SvgPicture.asset("assets/icons/search.svg"),
                     isShadow: true,
+                    controller: controller.searchController,
                   ),
                   const SizedBox(height: 8),
                 ]),

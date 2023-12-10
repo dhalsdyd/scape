@@ -17,10 +17,7 @@
 // class DefaultFirebaseOptions {
 //   static FirebaseOptions get currentPlatform {
 //     if (kIsWeb) {
-//       throw UnsupportedError(
-//         'DefaultFirebaseOptions have not been configured for web - '
-//         'you can reconfigure this by running the FlutterFire CLI again.',
-//       );
+//       return web;
 //     }
 //     switch (defaultTargetPlatform) {
 //       case TargetPlatform.android:
@@ -49,6 +46,16 @@
 //     }
 //   }
 
+//   static const FirebaseOptions web = FirebaseOptions(
+//     apiKey: 'AIzaSyA7Ilhi3Nnr_1LvyYs43xai4Qs7WdjdRN8',
+//     appId: '1:848798166148:web:ac462ffa109abc629226d1',
+//     messagingSenderId: '848798166148',
+//     projectId: 'scape-405910',
+//     authDomain: 'scape-405910.firebaseapp.com',
+//     storageBucket: 'scape-405910.appspot.com',
+//     measurementId: 'G-VGP9L3DES8',
+//   );
+
 //   static const FirebaseOptions android = FirebaseOptions(
 //     apiKey: 'AIzaSyA9H6qENpjN-yIK9-XCnCNteWOdeEeRhiQ',
 //     appId: '1:848798166148:android:9fdfb43f4dabd8159226d1',
@@ -59,12 +66,12 @@
 
 //   static const FirebaseOptions ios = FirebaseOptions(
 //     apiKey: 'AIzaSyB9tZf_o5eZEfKbzQnF-B9f5w1gEELNqsk',
-//     appId: '1:848798166148:ios:5835a55e38b978b99226d1',
+//     appId: '1:848798166148:ios:93041fbabf2892839226d1',
 //     messagingSenderId: '848798166148',
 //     projectId: 'scape-405910',
 //     storageBucket: 'scape-405910.appspot.com',
 //     androidClientId: '848798166148-orai04hmq2kkijpe5h5pmegbk6rek97f.apps.googleusercontent.com',
-//     iosClientId: '848798166148-leb0trg2f8lt2etil99bc94e4dfd3li5.apps.googleusercontent.com',
-//     iosBundleId: 'com.develop.scape',
+//     iosClientId: '848798166148-c5uet2g51eg5u4l3ihc8u2l5jv67pqno.apps.googleusercontent.com',
+//     iosBundleId: 'com.security.scape',
 //   );
 // }

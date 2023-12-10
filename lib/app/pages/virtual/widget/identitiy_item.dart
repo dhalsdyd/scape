@@ -18,6 +18,7 @@ class IdentitiyItem extends StatelessWidget {
     required this.subtitle,
     required this.colors,
     this.onTap,
+    this.isSearched = false,
   });
 
   final String title;
@@ -26,6 +27,7 @@ class IdentitiyItem extends StatelessWidget {
   final List<int> colors;
 
   final Function()? onTap;
+  final bool isSearched;
 
   // make color bolder
   int makeBolder(int color) {
@@ -62,7 +64,9 @@ class IdentitiyItem extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: ScapeColors.Gray60),
+              border: Border.all(
+                  color:
+                      !isSearched ? ScapeColors.Gray60 : ScapeColors.Primary30),
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
@@ -108,7 +112,8 @@ class IdentityDetailItem extends StatefulWidget {
       required this.subtitle,
       required this.content,
       required this.colors,
-      this.onTap});
+      this.onTap,
+      this.isSearched = false});
 
   final String title;
   final String subtitle;
@@ -116,6 +121,7 @@ class IdentityDetailItem extends StatefulWidget {
   final List<int> colors;
 
   final Function()? onTap;
+  final bool isSearched;
 
   @override
   State<IdentityDetailItem> createState() => _IdentityDetailItemState();

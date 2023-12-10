@@ -77,3 +77,4 @@ app.*.map.json
 
 # Others
 **/secret_key.dart
+**/ios/first

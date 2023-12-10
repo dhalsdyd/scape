@@ -37,7 +37,7 @@ class RootPageController extends GetxController with StateMixin {
   @override
   void onInit() async {
     super.onInit();
-    //await accountController.getAccount();
-    //await emailController.getEmailMessages();
+    await accountController.getAccount();
+    await emailController.getEmailMessages();
   }
 }

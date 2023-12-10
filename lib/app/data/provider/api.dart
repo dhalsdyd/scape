@@ -90,7 +90,7 @@ class JWTInterceptor extends Interceptor {
 
 class ScapeApiProvider implements ScapeApiInterface {
   final Dio dio = Dio();
-  final baseUrl = "https://03kz4038-4000.asse.devtunnels.ms";
+  final baseUrl = "https://scape.apps.sys.paas-ta-dev10.kr";
 
   ScapeApiProvider() {
     dio.options.baseUrl = baseUrl;
