@@ -4,7 +4,6 @@ import 'package:scape/app/data/models/email.dart';
 import 'package:scape/app/pages/inbox/widget/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MailItem extends StatelessWidget {
   const MailItem({super.key, required this.emailMessage});
@@ -34,10 +33,12 @@ class MailItem extends StatelessWidget {
                     height: 32,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
+                      color: ScapeColors.Gray40,
                     ),
                     child: Center(
-                      child: Text("A", style: ScapeTextTheme.Text4_BOLD),
-                    ),
+                        child: Text(emailMessage.from[0],
+                            style: ScapeTextTheme.Text3_MEDIUM.copyWith(
+                                color: ScapeColors.Gray10))),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -47,8 +48,11 @@ class MailItem extends StatelessWidget {
                         Text(emailMessage.subject,
                             style: ScapeTextTheme.Text3_MEDIUM),
                         const SizedBox(height: 4),
-                        Text("광고성 메일을 차단하여 더욱 깨끗한 메일함을 유지하세요.",
-                            style: ScapeTextTheme.Text1),
+                        Text(emailMessage.text,
+                            style: ScapeTextTheme.Text1.copyWith(
+                                color: ScapeColors.Gray20),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis),
                       ],
                     ),
                   ),

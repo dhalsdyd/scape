@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
+import 'package:scape/app/pages/account/controller.dart';
 
 class UnderLineTextField extends StatefulWidget {
-  const UnderLineTextField({
-    super.key,
-    required this.emoji,
-    required this.controller,
-    required this.hintText,
-    this.editable = true,
-    this.isPassword = false,
-    this.center = false,
-  });
+  const UnderLineTextField(
+      {super.key,
+      required this.emoji,
+      required this.controller,
+      required this.hintText,
+      this.editable = true,
+      this.isPassword = false,
+      this.center = false,
+      this.custom});
 
   final String emoji;
   final String hintText;
   final bool editable;
   final bool isPassword;
   final bool center;
+  final Map? custom;
   final TextEditingController controller;
 
   @override
@@ -34,6 +37,7 @@ class _UnderLineTextFieldState extends State<UnderLineTextField> {
     if (!widget.editable) {
       _editabled = true;
     }
+
     super.initState();
   }
 
@@ -109,9 +113,14 @@ class _UnderLineTextFieldState extends State<UnderLineTextField> {
                         ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        _editabled = !_editabled;
-                      });
+                      if (widget.custom != null) {
+                        Get.find<AccountSettingPageController>()
+                            .modifyAccountInformation(widget.custom!);
+                      } else {
+                        setState(() {
+                          _editabled = !_editabled;
+                        });
+                      }
                     },
                     child: Container(
                       decoration: BoxDecoration(

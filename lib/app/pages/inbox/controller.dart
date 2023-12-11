@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scape/app/data/models/email.dart';
@@ -10,6 +12,8 @@ class InboxPageController extends GetxController
   final EmailController emailController = Get.find<EmailController>();
 
   List<EmailMessage> get emailMessage => emailController.emailMessages;
+
+  final Completer<void> refreshCompleter = Completer<void>();
 
   @override
   void onInit() {

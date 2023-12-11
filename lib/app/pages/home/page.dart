@@ -1,8 +1,6 @@
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:scape/app/data/models/account.dart';
-import 'package:scape/app/data/module/account/module.dart';
-import 'package:scape/app/data/module/email/module.dart';
 import 'package:scape/app/data/service/auth/service.dart';
 import 'package:scape/app/pages/home/controller.dart';
 import 'package:scape/app/pages/home/widget/account_item.dart';

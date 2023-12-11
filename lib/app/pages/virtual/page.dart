@@ -35,6 +35,7 @@ class VirtualPage extends GetView<VirtualPageController> {
         children: [
           ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: ((context, index) {
                 Virtual item = controller.selected_list.value[index];
                 return IdentityDetailItem(
@@ -68,59 +69,69 @@ class VirtualPage extends GetView<VirtualPageController> {
           fit: StackFit.expand,
           children: [
             Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Virtual Identity",
-                    style: ScapeTextTheme.Text4_BOLD,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Virtual Identity",
+                  style: ScapeTextTheme.Text4_BOLD,
+                ),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            "Generated Identity",
+                            style: ScapeTextTheme.Text3,
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          _buildGeneratedIdentity(),
+                          const SizedBox(height: 16),
+                          const Text(
+                            "Available Identity",
+                            style: ScapeTextTheme.Text3,
+                          ),
+                          const SizedBox(height: 8),
+                          Obx(
+                            () => ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: controller.show_list.value.length,
+                              itemBuilder: ((context, index) {
+                                Virtual item =
+                                    controller.show_list.value[index];
+                                return IdentitiyItem(
+                                  title: item.title,
+                                  subtitle: item.subtitle,
+                                  colors: colorMap[item.color]!,
+                                  onTap: () {
+                                    controller.onSelected(item);
+                                  },
+                                  isSearched: item.isSearched,
+                                );
+                              }),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                        ]),
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Text(
-                    "Generated Identity",
-                    style: ScapeTextTheme.Text3,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  _buildGeneratedIdentity(),
-                  const SizedBox(height: 16),
-                  const Text(
-                    "Available Identity",
-                    style: ScapeTextTheme.Text3,
-                  ),
-                  const SizedBox(height: 8),
-                  Expanded(
-                    child: Obx(
-                      () => ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: controller.show_list.value.length,
-                        itemBuilder: ((context, index) {
-                          Virtual item = controller.show_list.value[index];
-                          return IdentitiyItem(
-                            title: item.title,
-                            subtitle: item.subtitle,
-                            colors: colorMap[item.color]!,
-                            onTap: () {
-                              controller.onSelected(item);
-                            },
-                            isSearched: item.isSearched,
-                          );
-                        }),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  ScapeTextField(
-                    hintText: "Search Information Types",
-                    prefixIcon: SvgPicture.asset("assets/icons/search.svg"),
-                    isShadow: true,
-                    controller: controller.searchController,
-                  ),
-                  const SizedBox(height: 8),
-                ]),
+                ),
+                ScapeTextField(
+                  hintText: "Search Information Types",
+                  prefixIcon: SvgPicture.asset("assets/icons/search.svg"),
+                  isShadow: true,
+                  controller: controller.searchController,
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
             Obx(() {
               if (controller.emailController.creatingMail.value) {
                 return const Column(

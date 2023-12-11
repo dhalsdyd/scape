@@ -4,18 +4,17 @@ import 'package:scape/app/routes/pages.dart';
 import 'package:scape/app/routes/route.dart';
 import 'package:scape/app/translation/translation.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:scape/app/widgets/error.dart';
 
 void main() async {
-  //WidgetsBinding widgetsBinding =
-  WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // loading
-  // FlutterNativeSplash.remove(widgetsBinding: widgetsBinding);
-
   await AppInitalizer().init();
+  FlutterNativeSplash.remove();
+
   //Get.config();
 
   runApp(

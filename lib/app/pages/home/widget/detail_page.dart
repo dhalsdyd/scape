@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:scape/app/pages/home/controller.dart';
@@ -26,8 +27,8 @@ class AccountDetailPage extends GetView<HomePageController> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(children: [
-                SvgPicture.asset("assets/icons/$assetName.svg"),
-                const SizedBox(width: 8),
+                // SvgPicture.asset("assets/icons/$assetName.svg"),
+                // const SizedBox(width: 8),
                 Text.rich(TextSpan(children: [
                   TextSpan(
                       text: "$title: ", style: ScapeTextTheme.Text3_MEDIUM),
@@ -117,58 +118,77 @@ class AccountDetailPage extends GetView<HomePageController> {
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(24),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Credentials', style: ScapeTextTheme.Text4_BOLD),
-              GestureDetector(
-                  onTap: () {
-                    Map data = {
-                      "serviceName": controller.selectAccount.value!.name,
-                      "Email": controller.selectAccount.value!.fields[0].value,
-                      "Password":
-                          controller.selectAccount.value!.fields[1].value,
-                      "Basic Identify":
-                          controller.selectAccount.value!.fields[2].value,
-                    };
-
-                    Get.toNamed(Routes.account_setting, arguments: data);
-                  },
-                  child: SvgPicture.asset("assets/icons/edit.svg"))
-            ],
-          ),
-          const SizedBox(height: 12),
-          credentialCard("mail_filled", "Email",
-              controller.selectAccount.value!.fields[0].value),
-          const SizedBox(height: 12),
-          credentialCard("small_key_filled", "Password",
-              controller.selectAccount.value!.fields[1].value),
-          const SizedBox(height: 32),
-          // const Text('Logs', style: ScapeTextTheme.Text4_BOLD),
-          // const SizedBox(height: 8),
-          // logCard(),
-          //const SizedBox(height: 32),
-          Text('Danger Zone',
-              style: ScapeTextTheme.Text4_BOLD.copyWith(color: Colors.red)),
-          const SizedBox(height: 12),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            decoration: BoxDecoration(
-              color: const Color(0xfff7f7f7),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: ScapeColors.Gray60),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+        child: SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset("assets/icons/trash.svg"),
-                const SizedBox(width: 8),
-                const Text('Delete Account', style: ScapeTextTheme.Text3),
+                const Text('Credentials', style: ScapeTextTheme.Text4_BOLD),
+                GestureDetector(
+                    onTap: () {
+                      Map data = {
+                        "serviceName": controller.selectAccount.value!.name,
+                        "Email":
+                            controller.selectAccount.value!.fields[0].value,
+                        "Password":
+                            controller.selectAccount.value!.fields[1].value,
+                        "Name": controller.selectAccount.value!.fields[2].value,
+                      };
+
+                      for (int i = 3;
+                          i < controller.selectAccount.value!.fields.length;
+                          i++) {
+                        data[controller.selectAccount.value!.fields[i].name] =
+                            controller.selectAccount.value!.fields[i].value;
+                      }
+
+                      Get.toNamed(Routes.account_setting, arguments: data);
+                    },
+                    child: SvgPicture.asset("assets/icons/edit.svg"))
               ],
             ),
-          ),
-        ]),
+            const SizedBox(height: 12),
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return credentialCard(
+                    controller.selectAccount.value!.fields[index].emoji,
+                    controller.selectAccount.value!.fields[index].name,
+                    controller.selectAccount.value!.fields[index].value);
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 8);
+              },
+              itemCount: controller.selectAccount.value!.fields.length,
+            ),
+            const SizedBox(height: 32),
+            // const Text('Logs', style: ScapeTextTheme.Text4_BOLD),
+            // const SizedBox(height: 8),
+            // logCard(),
+            //const SizedBox(height: 32),
+            Text('Danger Zone',
+                style: ScapeTextTheme.Text4_BOLD.copyWith(color: Colors.red)),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              decoration: BoxDecoration(
+                color: const Color(0xfff7f7f7),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: ScapeColors.Gray60),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SvgPicture.asset("assets/icons/trash.svg"),
+                  const SizedBox(width: 8),
+                  const Text('Delete Account', style: ScapeTextTheme.Text3),
+                ],
+              ),
+            ),
+          ]),
+        ),
       )),
     );
   }

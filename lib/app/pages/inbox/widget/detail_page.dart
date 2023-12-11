@@ -36,20 +36,20 @@ class InboxDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Shimmer.fromColors(
-                    baseColor: ScapeColors.Gray20,
-                    highlightColor: ScapeColors.Gray40,
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Center(
-                        child: Text("A", style: ScapeTextTheme.Text4_BOLD),
-                      ),
-                    )),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: ScapeColors.Gray40,
+                  ),
+                  child: Center(
+                      child: Text(emailMessage.from[0],
+                          style: ScapeTextTheme.Text3_MEDIUM.copyWith(
+                              color: ScapeColors.Gray10))),
+                ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
@@ -57,8 +57,8 @@ class InboxDetailPage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            _shimmerText(
-                              "보낸 사람",
+                            Text(
+                              emailMessage.from.split(" ")[0],
                               style: ScapeTextTheme.Text3_MEDIUM,
                             ),
                             Expanded(
@@ -70,16 +70,21 @@ class InboxDetailPage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        _shimmerText("FROM : ${emailMessage.from}",
-                            style: ScapeTextTheme.Text2),
+                        _shimmerText(
+                            "FROM : ${emailMessage.from.split(" ")[1].substring(1, emailMessage.from.split(" ")[1].length - 1)}",
+                            style: ScapeTextTheme.Text2.copyWith(
+                                color: ScapeColors.Gray20)),
                         _shimmerText("To : ${emailMessage.to}",
-                            style: ScapeTextTheme.Text2),
+                            style: ScapeTextTheme.Text2.copyWith(
+                                color: ScapeColors.Gray20)),
                       ]),
                 )
               ],
             ),
             const SizedBox(height: 16),
-            const Divider(),
+            const Divider(
+              color: ScapeColors.Gray60,
+            ),
             const SizedBox(height: 16),
             Expanded(child: HtmlWidget(emailMessage.html))
           ]),

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:favicon/favicon.dart';
 import 'package:flutter/services.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -65,13 +64,13 @@ class _AccountItemState extends State<AccountItem> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Center(
-                    child: CachedNetworkImage(
-                  imageUrl: snapshot.data!["favicon"],
-                  width: 18,
-                  errorWidget: (context, error, stackTrace) =>
+                    child: Image.network(
+                  snapshot.data!["favicon"],
+                  width: 24,
+                  errorBuilder: (context, error, stackTrace) =>
                       SvgPicture.network(
                     snapshot.data!["favicon"],
-                    width: 18,
+                    width: 24,
                   ),
                 )));
           } else {
@@ -266,10 +265,37 @@ class _AccountItemState extends State<AccountItem> {
     return Column(
       children: [
         const SizedBox(height: 16),
-        iconWithText2("small_mail", "Email : ${widget.account}"),
-        const SizedBox(height: 12),
-        if (widget.password != null)
-          iconWithText2("key", "Password : ${widget.password!}"),
+        ListView.separated(
+          itemCount: widget.account_.fields.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.account_.fields[index].name,
+                        style: ScapeTextTheme.Text2_MEDIUM,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        widget.account_.fields[index].value,
+                        style: ScapeTextTheme.Text2_MEDIUM,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+              ],
+            );
+          },
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
+        ),
         const SizedBox(height: 24),
         Row(
           children: [

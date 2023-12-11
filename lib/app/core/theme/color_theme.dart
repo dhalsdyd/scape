@@ -22,6 +22,7 @@ abstract class ScapeColors {
   static const Primary20 = Color(0xff06585C);
   static const Primary30 = Color(0xff298387);
   static const Primary40 = Color(0xff00ADB5);
+  static const Primary50 = Color(0xffA2DFE2);
 
   static const Gray10 = Color(0xff141414);
   static const Gray20 = Color(0xff606060);

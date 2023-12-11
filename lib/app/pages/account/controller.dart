@@ -5,7 +5,15 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:scape/app/data/module/account/module.dart';
+import 'package:scape/app/pages/account/widget/custom_field.dart';
 import 'package:scape/app/widgets/snackbar.dart';
+
+const availableList = [
+  "Gender",
+  "Birthday",
+  "Phone Number",
+  "Address",
+];
 
 class AccountSettingPageController extends GetxController with StateMixin {
   final AccountController accountController = Get.find<AccountController>();
@@ -21,6 +29,8 @@ class AccountSettingPageController extends GetxController with StateMixin {
   final RxString id = "".obs;
   final RxString password = "".obs;
   final RxString name = "".obs;
+
+  final Rx<List<Map>> moreInfo = Rx([]);
 
   final RxBool isPasswordVisible = false.obs;
 
@@ -97,17 +107,34 @@ class AccountSettingPageController extends GetxController with StateMixin {
 
     log("param : $param");
     if (param != null) {
-      setting(param["Email"] ?? "", param["Password"] ?? "",
-          param["Basic Identify"] ?? "");
+      settingAccount(param);
     }
 
     super.onInit();
   }
 
-  void setting(String email, String password, String name) {
+  void settingAccount(Map accountData) {
+    String serviceName = accountData["serviceName"] ?? "";
+    String email = accountData["Email"] ?? "";
+    String password = accountData["Password"] ?? "";
+    String name = accountData["Name"] ?? "";
+
+    serviceNameController.text = serviceName;
     emailController.text = email;
     passwordController.text = password;
     nameController.text = name;
+
+    for (String availalbe in availableList) {
+      if (accountData.containsKey(availalbe)) {
+        moreInfo.value.add({
+          "name": availalbe,
+          "value": accountData[availalbe],
+          "hidePreview": false,
+          "description": "This is your $availalbe.",
+          "emoji": "👤"
+        });
+      }
+    }
   }
 
   bool get inputValidity {
@@ -143,6 +170,10 @@ class AccountSettingPageController extends GetxController with StateMixin {
       },
     ];
 
+    for (var item in moreInfo.value) {
+      fields.add(item);
+    }
+
     change(null, status: RxStatus.loading());
     try {
       await accountController.createAccount({
@@ -155,5 +186,35 @@ class AccountSettingPageController extends GetxController with StateMixin {
       change(null, status: RxStatus.error());
       ScapeErrorSnackBar().open("생성하는데 실패했습니다.");
     }
+  }
+
+  void addAccountInformation() async {
+    final result = await Get.dialog(
+      CustomFieldModal(),
+      barrierDismissible: true,
+      useSafeArea: true,
+      transitionDuration: const Duration(milliseconds: 1),
+    );
+
+    if (result != null) {
+      moreInfo.value.add(result);
+    }
+    moreInfo.refresh();
+  }
+
+  void modifyAccountInformation(Map item) async {
+    final result = await Get.dialog(
+      CustomFieldModal(),
+      arguments: item,
+      barrierDismissible: true,
+      useSafeArea: true,
+      transitionDuration: const Duration(milliseconds: 1),
+    );
+
+    if (result != null) {
+      moreInfo.value.remove(item);
+      moreInfo.value.add(result);
+    }
+    moreInfo.refresh();
   }
 }

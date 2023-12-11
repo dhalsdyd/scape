@@ -1,7 +1,6 @@
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:scape/app/pages/account/controller.dart';
-import 'package:scape/app/pages/account/widget/custom_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -73,15 +72,23 @@ class AccountSettingPage extends GetView<AccountSettingPageController> {
                           emoji: "assets/icons/small_mail.svg",
                           controller: controller.nameController,
                           hintText: "Name"),
+                      Obx(
+                        () => ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: controller.moreInfo.value.length,
+                            itemBuilder: (context, index) => UnderLineTextField(
+                                  emoji: "assets/icons/small_mail.svg",
+                                  isPassword: controller.moreInfo.value[index]
+                                      ["hidePreview"],
+                                  controller: TextEditingController(
+                                      text: controller.moreInfo.value[index]
+                                          ["value"]),
+                                  hintText: "More Information",
+                                  custom: controller.moreInfo.value[index],
+                                )),
+                      ),
                       GestureDetector(
-                        onTap: () {
-                          Get.dialog(
-                            const CustomFieldModal(),
-                            barrierDismissible: true,
-                            useSafeArea: true,
-                            transitionDuration: const Duration(milliseconds: 1),
-                          );
-                        },
+                        onTap: controller.addAccountInformation,
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,

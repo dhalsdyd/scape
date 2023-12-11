@@ -1,8 +1,9 @@
 import 'dart:math';
+import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:random_name_generator/random_name_generator.dart';
+import 'package:random_x/random_x.dart';
 import 'package:scape/app/data/module/email/module.dart';
 import 'package:scape/app/routes/route.dart';
 
@@ -23,45 +24,19 @@ class Constant {
   static const String lowerWords = 'abcdefghijklmnopqrstuvwxyz';
   static const String numbers = '1234567890';
   static const String symbols = '@!%*?&';
-  static List<Zone> zones = [
-    Zone.catalonia,
-    Zone.france,
-    Zone.spain,
-    Zone.uk,
-    Zone.us,
-    Zone.turkey,
-    Zone.germany,
-    Zone.canada,
-    Zone.afghanistan,
-    Zone.austria,
-    Zone.belgium,
-    Zone.brazil,
-    Zone.china,
-    Zone.egypt,
-    Zone.finland,
-    Zone.india,
-    Zone.iran,
-    Zone.israel,
-    Zone.italy,
-    Zone.japan,
-    Zone.poland,
-    Zone.romania,
-    Zone.russia,
-    Zone.saudiArabia,
-    Zone.southAfrica,
-    Zone.switzerland,
-    Zone.uganda,
-    Zone.ukraine,
-    Zone.zimbabwe
-  ];
 }
 
 class VirtualPageController extends GetxController {
   final EmailController emailController = Get.find<EmailController>();
-  List<Virtual> virtual_list = [
+  final List<Virtual> virtual_list = [
     Virtual("Email", "Generate receive-only email", "gray"),
     Virtual("Password", "Generate random strong password", "orange"),
-    Virtual("Basic Identify", "Generate name, gender, and address", "green"),
+    Virtual("Name", "Generate random name", "green"),
+    Virtual("Gender", "Generate random gender", "green"),
+    Virtual("Address", "Generate random Address", "green"),
+    Virtual("Birthday", "Generate random birthday", "gray"),
+    Virtual("Phone Number", "Generate random phone number", "orange"),
+
     //Virtual("Phone Number", "Coming soon", 0xffD3D3D3),
   ];
   Rx<List<Virtual>> selected_list = Rx([]);
@@ -74,7 +49,7 @@ class VirtualPageController extends GetxController {
 
   @override
   void onInit() {
-    show_list.value = virtual_list;
+    show_list.value = List.from(virtual_list);
     searchController.addListener(() {
       search.value = searchController.text;
     });
@@ -82,7 +57,7 @@ class VirtualPageController extends GetxController {
     debounce(search, (callback) {
       // 검색 결과에 맞는 아이템을 찾고 그 아이템을 맨 위로 올린다. 나머지는 그대로 유지한다.
       List<Virtual> temp = [];
-      for (var item in virtual_list) {
+      for (var item in show_list.value) {
         if (item.title.toLowerCase().contains(search.value.toLowerCase())) {
           item.isSearched = true;
 
@@ -94,7 +69,7 @@ class VirtualPageController extends GetxController {
         }
       }
 
-      for (var item in virtual_list) {
+      for (var item in show_list.value) {
         if (!temp.contains(item)) {
           item.isSearched = false;
           temp.add(item);
@@ -122,9 +97,25 @@ class VirtualPageController extends GetxController {
       case "Password":
         item.content = makeRandomStrongPassword();
         break;
-      case "Basic Identify":
-        // Class Random 돌리기
+
+      case "Name":
         item.content = makeRandomName();
+        break;
+
+      case "Gender":
+        item.content = makeRandomGender();
+        break;
+
+      case "Address":
+        item.content = makeRandomAddress();
+        break;
+
+      case "Birthday":
+        item.content = makeRandomBirthday();
+        break;
+
+      case "Phone Number":
+        item.content = makeRandomPhoneNumber();
         break;
     }
 
@@ -142,6 +133,7 @@ class VirtualPageController extends GetxController {
   void onDone(Virtual item) {
     selected_list.value.remove(item);
     show_list.value.add(item);
+
     selected_list.refresh();
     show_list.refresh();
   }
@@ -183,13 +175,33 @@ class VirtualPageController extends GetxController {
       password = temp.join();
     }
 
+    // Password 길이를 10~15로 랜덤하게 설정
+
+    if (password.length > 15) {
+      password = password.substring(0, 15);
+    }
+
     return password;
   }
 
   String makeRandomName() {
-    Zone zone = Constant.zones[Random().nextInt(Constant.zones.length)];
-    RandomNames randomNames = RandomNames(zone);
-    return randomNames.fullName();
+    return RndX.generateName();
+  }
+
+  String makeRandomGender() {
+    return RndX.randomCompletePersonDetails().gender;
+  }
+
+  String makeRandomAddress() {
+    return "${RndX.randomAddress().address1} ${RndX.randomAddress().address2} ${RndX.randomAddress().city} ${RndX.randomAddress().state}";
+  }
+
+  String makeRandomBirthday() {
+    return RndX.randomCompletePersonDetails().birthDay;
+  }
+
+  String makeRandomPhoneNumber() {
+    return RndX.randomCompletePersonDetails().phoneNumber;
   }
 
   void saveIdentity() {
@@ -202,7 +214,13 @@ class VirtualPageController extends GetxController {
     }
 
     selected_list.value = [];
-    show_list.value = virtual_list;
+    selected_list.refresh();
+    show_list.value = List.from(virtual_list);
+
+    show_list.refresh();
+
+    developer.log("virtual list : ${virtual_list}");
+
     Get.toNamed(Routes.account_setting, arguments: data);
   }
 }
