@@ -1,7 +1,7 @@
 name: scape
 description: This is a Scape App
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -69,6 +69,7 @@ dependencies:
   flutter_widget_from_html: ^0.9.1
   cached_network_image: ^3.3.0
   random_x: ^0.3.1
+  flutter_web_frame: ^1.0.0
 
 dev_dependencies:
   flutter_test:

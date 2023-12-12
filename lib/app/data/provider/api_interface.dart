@@ -14,4 +14,7 @@ abstract class ScapeApiInterface {
   Future<List<Email>> getEmail();
   Future<Email> createEmail();
   Future<List<EmailMessage>> getEmailMessage();
+
+  //Chat
+  Future<Stream<String>> chatWithOpenAi(Map data);
 }

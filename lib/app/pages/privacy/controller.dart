@@ -1,89 +1,112 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:developer' as d;
+import 'dart:math';
+
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:scape/app/core/util/secret_key.dart';
+import 'package:scape/app/data/provider/api.dart';
 
 class PrivacyPageController extends GetxController {
   final ScrollController scrollController = ScrollController();
   final TextEditingController chattingController = TextEditingController();
+  StreamSubscription<String>? _streamSubscription;
+
   final openAI = OpenAI.instance.build(token: OPENAI_API_KEY);
 
-  Stream<String> createTextStream(String inputText) async* {
-    List<String> words = inputText.split(' ');
+  final api = ScapeApiProvider();
 
-    for (String word in words) {
-      // 1초마다 단어를 방출
-      await Future.delayed(const Duration(milliseconds: 100));
-      yield word;
-    }
-  }
+  RxBool isChatting = RxBool(false);
 
-  Rx<Map> mockPingPong = Rx<Map>({
-    "구글 개인정보처리방침에 대해 알려줘":
-        """
-네, 물론입니다. 구글의 개인정보처리방침은 사용자의 정보 수집, 보호, 그리고 사용에 관한 중요한 정보를 다룹니다. 아래는 구글 개인정보처리방침의 주요 내용을 간략히 정리한 것입니다:
-
-수집하는 정보 유형:
-
-계정 정보: 이메일 주소, 전화번호, 기타 필수 정보
-디바이스 정보: 사용 중인 기기와 브라우저 정보, IP 주소 등
-서비스 이용 정보: 검색 기록, 시청 기록, 위치 정보 등
-쿠키와 유사 기술을 통한 정보 수집
-정보 사용 목적:
-
-개인화된 서비스 제공
-광고 및 콘텐츠 제공
-보안 및 기술적 문제 해결
-서비스 개선과 신규 서비스 개발
-정보의 보호와 보안:
-
-안전한 저장 및 전송을 위한 기술적, 물리적 보호 조치
-암호화 기술의 사용
-사용자의 데이터 접근 권한 제한
-정보 공유:
-
-사용자 동의 없이는 개인 식별이 불가능한 형태로만 정보를 공유
-법적 요구사항이나 합병, 인수 등의 상황에서만 정보 공유
-사용자 권리:
-
-정보 열람, 수정, 삭제 및 이동 권리
-개인정보 처리에 대한 동의 철회 가능
-구글 개인정보처리방침 전문은 여기에서 확인할 수 있습니다. 출처: 구글 개인정보처리방침 (https://policies.google.com/privacy?hl=ko)
-"""
-  });
-
-  Rx<List<Map>> chatList = Rx<List<Map>>([
-    {
-      "role": "system",
-      "content":
-          "어떤 서비스나 사이트의 개인정보처리방침에 관한 정보를 알려드리겠습니다. 제공하려는 서비스나 사이트의 이름을 알려주시면 해당 개인정보처리방침을 요약하여 알려드리겠습니다."
-    }
+  Rx<List<List>> chatList = Rx<List<List>>([
+    [
+      "system",
+      "You need to answer the questions about privacy statement and terms of service of certain sites or app or service that user has mantioned. You never answer any question againsts this rule. To answer the questions, you need to reference official web site for the first priority. "
+    ]
   ]);
 
-  void addChat({String role = "me"}) {
+  Map parseEventDataString(String eventDataString) {
+    // 여러개 있을 수 있다.
+    final eventDataList = eventDataString.split("\n");
+
+    //d.log("eventDataList: $eventDataList");
+
+    bool isDone = false;
+    String output = "";
+
+    for (final eventData in eventDataList) {
+      final List<String> eventDataSplit = eventData.split(":");
+
+      //d.log("eventDataSplit: ${eventDataSplit}");
+      if (eventDataSplit[0] == "data") {
+        //d.log("True");
+
+        String content = eventDataSplit[1];
+
+        RegExp exp = RegExp(r'(?<=")[^"]*(?=")');
+        exp.allMatches(content).forEach((match) {
+          content = match.group(0)!;
+        });
+
+        // \u로 시작하는 모든 값을 찾아서 해당하는 값을 \u로 시작하는 16진수로 변환
+        content = content.replaceAllMapped(
+            RegExp(r'\\u[\da-fA-F]{4}'),
+            (Match m) => String.fromCharCode(
+                int.parse(m.group(0)!.substring(2, 6)!, radix: 16)));
+
+        content = content.replaceAll("\\n", "\n");
+        output += content;
+      }
+
+      if (eventDataSplit[0] == "event" && eventDataSplit[1] == "end") {
+        isDone = true;
+      }
+    }
+
+    return {"event": isDone ? "end" : "data", "data": output};
+  }
+
+  void addChat({String role = "human"}) async {
+    if (isChatting.value) return;
+
     final content = chattingController.text;
     if (content.isEmpty) return;
-
     chattingController.clear();
+    chatList.value.insert(0, [role, content]);
 
-    chatList.value.insert(0, {"role": role, "content": content});
+    Map data = {
+      "input": {"question": content, "chat_history": chatList.value},
+      "config": {}
+    };
+    String response = "";
+    chatList.value.insert(0, ["system", "Loading..."]);
+    isChatting.value = true;
+    chatList.refresh();
 
-    String response = mockPingPong.value[content] ??
-        "죄송합니다만, 개인정보처리방침에 관한 질문이 아닙니다. 개인정보처리방침에 관련된 내용으로 다시 질문해 주시기 바랍니다.";
+    try {
+      _streamSubscription = (await api.chatWithOpenAi(data)).listen((event) {
+        //d.log(event);
+        final eventDataMap = parseEventDataString(event);
 
-    Stream<String> textStream = createTextStream(response);
-
-    String resposne = "";
-    chatList.value.insert(0, {"role": "system", "content": ""});
-    textStream.listen((event) {
-      resposne += event;
-      chatList.value.first["content"] = resposne;
+        String output = eventDataMap["data"] as String;
+        // d.log("Output: $output");
+        response += output;
+        chatList.value[0][1] = response;
+        chatList.refresh();
+        if (eventDataMap["event"] == "end") {
+          _streamSubscription?.cancel();
+        }
+      });
+    } catch (e) {
+      chatList.value[0][1] = "Error occured. Please try again.";
       chatList.refresh();
-    }).onDone(() {
-      // URL
-    });
+    } finally {
+      isChatting.value = false;
+    }
 
-    //chatList.refresh();
     scrollController.animateTo(
       0.0,
       curve: Curves.easeOut,

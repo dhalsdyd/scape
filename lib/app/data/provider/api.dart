@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -178,8 +180,43 @@ class ScapeApiProvider implements ScapeApiInterface {
   }
 
   @override
-  Future<Map> refreshAccessToken(String refreshToken) {
-    // TODO: implement refreshAccessToken
-    throw UnimplementedError();
+  Future<Stream<String>> chatWithOpenAi(Map data) async {
+    String url = "https://03kz4038-8080.asse.devtunnels.ms/chat/stream";
+
+    try {
+      Response response = await dio.post<ResponseBody>(
+        url,
+        data: data,
+        options: Options(
+          // utf-8로 인코딩된 스트림을 받기 위해 responseType을 stream으로 설정
+          headers: {"Accept": "text/event-stream", "charset": "utf-8"},
+          responseType: ResponseType.stream,
+        ),
+      );
+
+      return utf8.decoder
+          .bind(response.data?.stream)
+          .transform(StreamTransformer.fromHandlers(
+        handleData: (data, sink) {
+          if (data != ':\n\n') {
+            sink.add(data);
+          }
+        },
+      ));
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Map> refreshAccessToken(String refreshToken) async {
+    String url = "/users/auth/refresh";
+    try {
+      Response response =
+          await dio.post(url, data: {"refreshToken": refreshToken});
+      return response.data;
+    } on DioError catch (_) {
+      rethrow;
+    }
   }
 }

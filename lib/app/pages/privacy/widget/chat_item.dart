@@ -55,7 +55,7 @@ class ChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = Get.width;
+    double deviceWidth = Get.width > 475 ? 475 : Get.width;
 
     return Row(
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,

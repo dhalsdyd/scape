@@ -36,9 +36,9 @@ class PrivacyPage extends GetView<PrivacyPageController> {
                         reverse: true,
                         itemBuilder: (context, index) {
                           return ChatItem(
-                            isMe: controller.chatList.value[index]["role"] !=
-                                "system",
-                            text: controller.chatList.value[index]["content"],
+                            isMe:
+                                controller.chatList.value[index][0] != "system",
+                            text: controller.chatList.value[index][1],
                           );
                         },
                         separatorBuilder: (context, index) {
