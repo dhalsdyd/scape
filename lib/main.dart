@@ -24,7 +24,6 @@ void main() async {
         builder: (context) {
           return GetMaterialApp(
             //unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()),
-
             initialRoute: Routes.root,
             getPages: AppPages.pages,
             theme: ThemeData(

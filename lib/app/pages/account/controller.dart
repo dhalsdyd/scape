@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:favicon/favicon.dart';
@@ -16,6 +17,8 @@ const availableList = [
 ];
 
 class AccountSettingPageController extends GetxController with StateMixin {
+  Completer? _createCompleter;
+
   final AccountController accountController = Get.find<AccountController>();
 
   final TextEditingController serviceNameController = TextEditingController();
@@ -66,8 +69,8 @@ class AccountSettingPageController extends GetxController with StateMixin {
 
       log("FIND IT! : ${favicon.url}");
       faviconUrl.value = favicon.url;
-      realServiceName.value = extractServiceName(favicon.url).toUpperCase();
-      faviconColor.value = await getImagePalette(NetworkImage(favicon.url));
+      //ealServiceName.value = extractServiceName(favicon.url).toUpperCase();
+      //faviconColor.value = await getImagePalette(NetworkImage(favicon.url));
     } catch (e) {
       faviconUrl.value = "";
       realServiceName.value = "";
@@ -145,6 +148,12 @@ class AccountSettingPageController extends GetxController with StateMixin {
   }
 
   void createAccount() async {
+    if (_createCompleter != null && !_createCompleter!.isCompleted) {
+      return;
+    }
+
+    _createCompleter = Completer();
+
     String name = serviceNameController.text;
     List<Map> fields = [
       {
@@ -185,6 +194,8 @@ class AccountSettingPageController extends GetxController with StateMixin {
     } catch (e) {
       change(null, status: RxStatus.error());
       ScapeErrorSnackBar().open("생성하는데 실패했습니다.");
+    } finally {
+      _createCompleter!.complete();
     }
   }
 
@@ -212,8 +223,17 @@ class AccountSettingPageController extends GetxController with StateMixin {
     );
 
     if (result != null) {
+      // index 찾기
+      int index = 0;
+      for (int i = 0; i < moreInfo.value.length; i++) {
+        if (moreInfo.value[i]["name"] == item["name"]) {
+          index = i;
+          break;
+        }
+      }
+
       moreInfo.value.remove(item);
-      moreInfo.value.add(result);
+      moreInfo.value.insert(index, result);
     }
     moreInfo.refresh();
   }

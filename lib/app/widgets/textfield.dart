@@ -222,9 +222,10 @@ class ScapeDropdownField extends StatelessWidget {
 }
 
 class ScapeDropdownIcon extends StatelessWidget {
-  ScapeDropdownIcon({super.key, required this.icon});
+  ScapeDropdownIcon({super.key, required this.icon, this.onTap});
 
   final Widget icon;
+  final Function(String)? onTap;
 
   final OverlayPortalController _overlayPortalController =
       OverlayPortalController();
@@ -239,7 +240,7 @@ class ScapeDropdownIcon extends StatelessWidget {
           overlayChildBuilder: (context) {
             return GestureDetector(
               onTap: () {
-                _overlayPortalController.hide();
+                //_overlayPortalController.hide();
               },
               child: CompositedTransformFollower(
                 link: _link,
@@ -248,16 +249,20 @@ class ScapeDropdownIcon extends StatelessWidget {
                 child: Align(
                     alignment: AlignmentDirectional.topStart,
                     child: Container(
-                      width: 100,
-                      color: Colors.white,
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          const ListTile(title: Text("이름순")),
-                          const ListTile(title: Text("최신순")),
-                        ],
-                      ),
-                    )),
+                        width: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
+                          border: Border.all(color: const Color(0xffE6E6E6)),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _makeListItem("Name", isTop: true),
+                            const Divider(),
+                            _makeListItem("Date"),
+                          ],
+                        ))),
               ),
             );
           },
@@ -266,6 +271,22 @@ class ScapeDropdownIcon extends StatelessWidget {
                 _overlayPortalController.show();
               },
               child: icon)),
+    );
+  }
+
+  GestureDetector _makeListItem(String name, {bool isTop = false}) {
+    return GestureDetector(
+      onTap: () {
+        onTap?.call(name);
+        _overlayPortalController.hide();
+      },
+      child: Column(
+        children: [
+          SizedBox(height: isTop ? 8 : 4),
+          Text(name, style: ScapeTextTheme.Text2_MEDIUM),
+          SizedBox(height: isTop ? 4 : 8),
+        ],
+      ),
     );
   }
 }

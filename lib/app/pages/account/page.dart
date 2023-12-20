@@ -1,3 +1,4 @@
+import 'package:image_network/image_network.dart';
 import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:scape/app/pages/account/controller.dart';
@@ -30,19 +31,17 @@ class AccountSettingPage extends GetView<AccountSettingPageController> {
                         if (controller.faviconUrl.value != "") {
                           return Column(
                             children: [
-                              Image.network(
-                                controller.faviconUrl.value,
+                              ImageNetwork(
+                                image: controller.faviconUrl.value,
+                                height: 50,
                                 width: 50,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    SvgPicture.network(
+                                onLoading: const SizedBox(),
+                                onError: SvgPicture.network(
                                   controller.faviconUrl.value,
                                   width: 50,
                                 ),
+                                debugPrint: true,
                               ),
-                              const SizedBox(height: 8),
-                              Text(controller.realServiceName.value,
-                                  style: ScapeTextTheme.Text2_MEDIUM.copyWith(
-                                      color: controller.faviconColor.value))
                             ],
                           );
                         } else {

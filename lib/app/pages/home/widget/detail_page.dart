@@ -143,6 +143,8 @@ class AccountDetailPage extends GetView<HomePageController> {
                             controller.selectAccount.value!.fields[i].value;
                       }
 
+                      data["modify"] = true;
+
                       Get.toNamed(Routes.account_setting, arguments: data);
                     },
                     child: SvgPicture.asset("assets/icons/edit.svg"))
@@ -183,7 +185,27 @@ class AccountDetailPage extends GetView<HomePageController> {
                 children: [
                   SvgPicture.asset("assets/icons/trash.svg"),
                   const SizedBox(width: 8),
-                  const Text('Delete Account', style: ScapeTextTheme.Text3),
+                  GestureDetector(
+                    onTap: () {
+                      Get.defaultDialog(
+                          buttonColor: ScapeColors.Primary20,
+                          titlePadding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
+                          title: "Delete Account",
+                          content: const Text(
+                              "Are you sure you want to delete this account?"),
+                          textConfirm: "Delete",
+                          textCancel: "Cancel",
+                          confirmTextColor: Colors.white,
+                          onConfirm: () {
+                            controller.deleteAccount();
+                            Get.back();
+                          });
+                    },
+                    child: const Text('Delete Account',
+                        style: ScapeTextTheme.Text3),
+                  ),
                 ],
               ),
             ),

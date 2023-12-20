@@ -1,13 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:developer' as d;
-import 'dart:math';
 
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:developer' as d;
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:scape/app/core/util/secret_key.dart';
 import 'package:scape/app/data/provider/api.dart';
 
 class PrivacyPageController extends GetxController {
@@ -15,17 +10,16 @@ class PrivacyPageController extends GetxController {
   final TextEditingController chattingController = TextEditingController();
   StreamSubscription<String>? _streamSubscription;
 
-  final openAI = OpenAI.instance.build(token: OPENAI_API_KEY);
-
   final api = ScapeApiProvider();
 
   RxBool isChatting = RxBool(false);
 
   Rx<List<List>> chatList = Rx<List<List>>([
+    ["ai", "사이트 개인정보 Scape 챗봇입니다. 뭐든지 물어보세요. ex) 구글의 개인정보처리방침에 대해 알려줘."],
     [
       "system",
       "You need to answer the questions about privacy statement and terms of service of certain sites or app or service that user has mantioned. You never answer any question againsts this rule. To answer the questions, you need to reference official web site for the first priority. "
-    ]
+    ],
   ]);
 
   Map parseEventDataString(String eventDataString) {
@@ -82,7 +76,7 @@ class PrivacyPageController extends GetxController {
       "config": {}
     };
     String response = "";
-    chatList.value.insert(0, ["system", "Loading..."]);
+    chatList.value.insert(0, ["ai", "Loading..."]);
     isChatting.value = true;
     chatList.refresh();
 
@@ -92,7 +86,7 @@ class PrivacyPageController extends GetxController {
         final eventDataMap = parseEventDataString(event);
 
         String output = eventDataMap["data"] as String;
-        // d.log("Output: $output");
+        //d.log("Output: $output");
         response += output;
         chatList.value[0][1] = response;
         chatList.refresh();

@@ -1,8 +1,10 @@
+import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:scape/app/pages/privacy/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scape/app/pages/privacy/widget/chat_item.dart';
+import 'package:scape/app/widgets/bottom_modal.dart';
 import 'package:scape/app/widgets/textfield.dart';
 
 class PrivacyPage extends GetView<PrivacyPageController> {
@@ -17,11 +19,8 @@ class PrivacyPage extends GetView<PrivacyPageController> {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text(
-                "Search Privacy Policy",
-                style: ScapeTextTheme.Text4_BOLD,
-              ),
-              const SizedBox(height: 8),
+              const AppbarItem(title: "Search Privacy Policy"),
+              const SizedBox(height: 16),
               Expanded(
                   child: GestureDetector(
                 onTap: () {
@@ -35,9 +34,12 @@ class PrivacyPage extends GetView<PrivacyPageController> {
                         shrinkWrap: true,
                         reverse: true,
                         itemBuilder: (context, index) {
+                          if (controller.chatList.value[index][0] == "system") {
+                            return const SizedBox();
+                          }
+
                           return ChatItem(
-                            isMe:
-                                controller.chatList.value[index][0] != "system",
+                            isMe: controller.chatList.value[index][0] != "ai",
                             text: controller.chatList.value[index][1],
                           );
                         },

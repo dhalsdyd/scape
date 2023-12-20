@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:developer' as developer;
 
@@ -27,14 +28,16 @@ class Constant {
 }
 
 class VirtualPageController extends GetxController {
+  Completer? _createCompleter;
+
   final EmailController emailController = Get.find<EmailController>();
   final List<Virtual> virtual_list = [
     Virtual("Email", "Generate receive-only email", "gray"),
-    Virtual("Password", "Generate random strong password", "orange"),
+    Virtual("Password", "Generate random strong password", "gray"),
     Virtual("Name", "Generate random name", "green"),
     Virtual("Gender", "Generate random gender", "green"),
     Virtual("Address", "Generate random Address", "green"),
-    Virtual("Birthday", "Generate random birthday", "gray"),
+    Virtual("Birthday", "Generate random birthday", "orange"),
     Virtual("Phone Number", "Generate random phone number", "orange"),
 
     //Virtual("Phone Number", "Coming soon", 0xffD3D3D3),
@@ -84,9 +87,15 @@ class VirtualPageController extends GetxController {
   }
 
   void onSelected(Virtual item) async {
+    if (_createCompleter != null && !_createCompleter!.isCompleted) {
+      return;
+    }
+
     if (selected_list.value.contains(item)) {
       return;
     }
+
+    _createCompleter = Completer();
 
     switch (item.title) {
       case "Email":
@@ -124,6 +133,9 @@ class VirtualPageController extends GetxController {
 
     selected_list.refresh();
     show_list.refresh();
+
+    _createCompleter!.complete();
+    return _createCompleter!.future;
   }
 
   void makeEmail() {

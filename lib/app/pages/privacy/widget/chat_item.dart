@@ -63,14 +63,16 @@ class ChatItem extends StatelessWidget {
       children: [
         if (!isMe)
           Container(
+              clipBehavior: Clip.hardEdge,
               width: 32,
               height: 32,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: ScapeColors.Gray40,
               ),
-              child: Image.network(
-                  "https://chatgptaihub.com/wp-content/uploads/2023/06/ChatGpt-Logo-with-Black-Background.png")),
+              child: Image.asset(
+                "assets/icons/scape.png",
+              )),
         const SizedBox(width: 10),
         Align(
           alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,

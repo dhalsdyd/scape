@@ -9,6 +9,8 @@ abstract class ScapeApiInterface {
   //Account
   Future<List<Account>> getAccount();
   Future<void> createAccount(Map data);
+  Future<void> deleteAccount(String id);
+  Future<void> updateAccount(String id, Map data);
 
   //Email.
   Future<List<Email>> getEmail();

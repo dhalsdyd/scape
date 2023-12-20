@@ -8,4 +8,7 @@ class AccountRepository {
 
   Future<List<Account>> getAccount() async => api.getAccount();
   Future<void> createAccount(Map data) async => api.createAccount(data);
+  Future<void> deleteAccount(String id) async => api.deleteAccount(id);
+  Future<void> updateAccount(String id, Map data) async =>
+      api.updateAccount(id, data);
 }

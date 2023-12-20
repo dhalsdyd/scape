@@ -33,7 +33,6 @@ class HomePageController extends GetxController with StateMixin {
   }
 
   List<String> get starList => localDatabase.starList;
-
   Rx<Account?> selectAccount = Rx(null);
 
   List<Map> logMockData = [
@@ -105,5 +104,15 @@ class HomePageController extends GetxController with StateMixin {
       log("searchResult : ${searchResult.value}");
       searchResult.refresh();
     }, time: const Duration(milliseconds: 500));
+  }
+
+  void deleteAccount() async {
+    await accountController.deleteAccount(selectAccount.value!.id);
+    Get.back();
+  }
+
+  Future<void> refreshAccount() async {
+    await accountController.getAccount();
+    accounts = accountController.accounts;
   }
 }

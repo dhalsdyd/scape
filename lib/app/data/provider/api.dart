@@ -139,6 +139,26 @@ class ScapeApiProvider implements ScapeApiInterface {
   }
 
   @override
+  Future<void> deleteAccount(String id) async {
+    String url = "/accounts/$id";
+    try {
+      await dio.delete(url);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateAccount(String id, Map data) async {
+    String url = "/accounts/$id";
+    try {
+      await dio.put(url, data: data);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<Email> createEmail() async {
     String url = "/emails";
     try {
@@ -181,7 +201,7 @@ class ScapeApiProvider implements ScapeApiInterface {
 
   @override
   Future<Stream<String>> chatWithOpenAi(Map data) async {
-    String url = "https://03kz4038-8080.asse.devtunnels.ms/chat/stream";
+    String url = "https://dev-api.dimipay.io/scape/chat/stream";
 
     try {
       Response response = await dio.post<ResponseBody>(

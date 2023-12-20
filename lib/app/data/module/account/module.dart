@@ -23,4 +23,22 @@ class AccountController extends GetxController {
       rethrow;
     }
   }
+
+  Future<void> deleteAccount(String id) async {
+    try {
+      await repository.deleteAccount(id);
+      await getAccount();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateAccount(String id, Map data) async {
+    try {
+      await repository.updateAccount(id, data);
+      await getAccount();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

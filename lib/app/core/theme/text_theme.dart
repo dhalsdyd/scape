@@ -154,4 +154,9 @@ abstract class ScapeTextTheme {
       fontWeight: FontWeight.w700,
       fontSize: 20,
       color: ScapeColors.black);
+  static const Text6_BOLD = TextStyle(
+      fontFamily: "Pretendard",
+      fontWeight: FontWeight.w700,
+      fontSize: 24,
+      color: ScapeColors.black);
 }

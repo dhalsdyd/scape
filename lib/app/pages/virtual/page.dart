@@ -5,6 +5,7 @@ import 'package:scape/app/core/theme/color_theme.dart';
 import 'package:scape/app/core/theme/text_theme.dart';
 import 'package:scape/app/pages/virtual/controller.dart';
 import 'package:scape/app/pages/virtual/widget/identitiy_item.dart';
+import 'package:scape/app/widgets/bottom_modal.dart';
 import 'package:scape/app/widgets/button.dart';
 import 'package:scape/app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class VirtualPage extends GetView<VirtualPageController> {
     return Scaffold(
         body: SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
         child: Stack(
           fit: StackFit.expand,
           children: [
@@ -72,10 +73,7 @@ class VirtualPage extends GetView<VirtualPageController> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Virtual Identity",
-                  style: ScapeTextTheme.Text4_BOLD,
-                ),
+                const AppbarItem(title: "Virtual Identity"),
                 const SizedBox(height: 8),
                 Expanded(
                   child: SingleChildScrollView(
@@ -129,7 +127,6 @@ class VirtualPage extends GetView<VirtualPageController> {
                   isShadow: true,
                   controller: controller.searchController,
                 ),
-                const SizedBox(height: 8),
               ],
             ),
             Obx(() {
